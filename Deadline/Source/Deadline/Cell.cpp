@@ -2,7 +2,7 @@
 #include "Cell.h"
 
 
-Cell::Cell(int roomNum)
+Cell::Cell()
 {	 //(N,E,S,W)
 	int walls[] = { 1, 1, 1, 1 };
 	int room = 0;
@@ -20,7 +20,7 @@ void Cell::removeS()
 {
 	walls[2] = 0;
 }
-void Cell::removeN()
+void Cell::removeW()
 {
 	walls[3] = 0;
 }

@@ -2,10 +2,10 @@
 
 #include "Deadline.h"
 #include "Grid.h"
-#include "Cell.cpp"
 #include "stack"
 #include "ctime"
-
+#include <vector>
+#include "Cell.h"
 #define NORTH 0
 #define NORTH   0
 #define SOUTH   1
@@ -14,46 +14,37 @@
 
 using namespace std;
 
+
+
 Grid::Grid(int x, int y)
 {
-	sizeX = x, sizeY = y;
-	grid = new Cell[sizeX][sizeY]();
-	generate();
-
+	grid.resize(x);
+	for (int i = 0; i < 10; i++)
+		grid[i].resize(y);
 }
-Grid::Generate() {
+void Grid::generate() {
 	stack<int> xValues;
 	stack<int> yValues;
 	int ngGood = 0;
 	int locX = 0, locY = 0;
 	
-	for (int i = 0; i < 4 i++)
-	{
-	
-		//grid[locX][locY].walls[i]
-	}
+	//for (int i = 0; i < 4 i++)
+	//{
+	//	grid[locX][locY].
+	//}
 }
 
-int moveEW(int direction, int x){
-    if (direction == EAST)
-            return x + 1;
-    else if (direction == WEST)
-            return x - 1;
-    else
-            return x;
-}
+void Grid::moveEW(int direction, int x)
+{
 
-int moveNS(int direction, int y){
-    if (direction == NORTH)
-            return y - 1;
-    else if (direction == SOUTH)
-            return y + 1;
-    else
-            return y;
+}
+void Grid::moveNS(int direction, int y)
+{
+
 }
 
 
 Grid::~Grid()
 {
-	delete[] grid;
+
 }

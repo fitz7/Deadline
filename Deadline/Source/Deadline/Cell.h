@@ -10,7 +10,7 @@ class DEADLINE_API Cell
 
 
 public:
-	Cell(int);
+	Cell();
 	~Cell();
 	int walls[4];
 	int room;
