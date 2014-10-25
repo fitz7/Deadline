@@ -2,20 +2,6 @@
 #include "Cell.h"
 
 
-class Cell
-{
-public:	  
-	Cell(int);
-	~Cell();
-	int walls[4];
-	int room;
-private:
-	void removeN();											  
-	void removeE();
-	void removeS();
-	void removeW();
-	void setRoom(int);
-};
 Cell::Cell(int roomNum)
 {	 //(N,E,S,W)
 	int walls[] = { 1, 1, 1, 1 };

@@ -8,6 +8,14 @@
 class DEADLINE_API Grid
 {
 public:
-	Grid();
-	~Grid();
+
+	public:
+		Grid(int, int);
+
+	private:
+		Generate();
+		moveEW();
+		moveNS();
+	
+
 };

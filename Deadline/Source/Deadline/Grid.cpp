@@ -14,18 +14,6 @@
 
 using namespace std;
 
-class Grid{
-public:
-	Grid(int, int);
-
-private:
-	int sizeX;
-	int sizeY;
-	Generate();
-	moveEW();
-	moveNS();
-};
-
 Grid::Grid(int x, int y)
 {
 	sizeX = x, sizeY = y;

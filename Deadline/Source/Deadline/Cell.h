@@ -10,7 +10,15 @@ class DEADLINE_API Cell
 
 
 public:
-	 
+	Cell(int);
 	~Cell();
+	int walls[4];
+	int room;
+private:
+	void removeN();
+	void removeE();
+	void removeS();
+	void removeW();
+	void setRoom(int);
 
 };
