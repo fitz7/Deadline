@@ -13,6 +13,16 @@ Cell::Cell()
 	bool been = false;
 }
 
+void Cell::setDefault()
+{
+	for (int n = 0; n<4; ++n)
+	{
+		walls[n] = 1;
+	}
+	room = 0;
+	been = false;
+}
+
 void Cell::removeWall(int wall, int ID)
 {
 	walls[wall] = ID;

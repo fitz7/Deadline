@@ -12,6 +12,7 @@ class DEADLINE_API Cell
 public:
 	Cell();
 	~Cell();
+	void setDefault();
 	int walls[4];
 	int room;
 	bool been;

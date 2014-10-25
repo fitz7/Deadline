@@ -22,16 +22,16 @@ void Afloor::start()
 	static const int X = 10;
 	static const int Y = 10;
 
-	Grid* g = new Grid(X, Y);
+	Grid* g = new Grid(Y, X);
 	g->generate();
 	FString line;
-	for (int i = 0; i < X; i++){
-		for (int j = 0; j < Y; j++)
+	for (int i = 1; i <= Y-1; i++){
+		for (int j = 1; j <= Y-1; j++)
 		{
 			int thisroom = g->grid[i][j].room;
 			line += FString::FromInt(thisroom);
 		}
-		UE_LOG(LogClass, Log, TEXT("%s"), line);
+		//UE_LOG(LogTemp, Log, TEXT("%s"), line);
 		line = "";
 	}
 
