@@ -13,9 +13,15 @@
 
 using namespace std;
 
-int ngGood = 0;
-int locX=1, locY =1;
+class Grid{
+public:
+	Grid(int, int);
 
+private:
+	Generate();
+	moveEW();
+	moveNS();
+};
 
 Grid::Grid(int x, int y)
 {
@@ -24,7 +30,10 @@ Grid::Grid(int x, int y)
 
 }
 Grid::Generate() {
-	
+	stack<int> xValues;
+	stack<int> yValues;
+	int ngGood = 0;
+	int locX = 1, locY = 1;
 }
 
 Grid::moveEW(int direction, int x)
