@@ -28,7 +28,7 @@ void Afloor::start()
 	for (int i = 1; i <= Y-1; i++){
 		for (int j = 1; j <= Y-1; j++)
 		{
-			int thisroom = g->grid[i][j].room;
+			int thisroom = g->grid[j][i].room;
 			line += FString::FromInt(thisroom);
 		}
 		//UE_LOG(LogTemp, Log, TEXT("%s"), line);

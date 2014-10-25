@@ -38,7 +38,7 @@ void Grid::generate() {
 	int locX = 1, locY = 1;
 	int roomNum = 1;
 	do{
-
+		grid[locY][locX].been = true;
 		for (int i = 0; i < 4; i++)
 		{
 			if (isGoodMove(locX, locY, sizeX, sizeY, i, grid))
@@ -46,28 +46,28 @@ void Grid::generate() {
 		}
 
 		if (nGood == 1){
-			grid[locY][locX].been = true;
-			grid[locX][locY].room = roomNum;
 
-			int doorchance = rand() % 10;
+			//grid[locY][locX].room = roomNum;
+
+			//int doorchance = rand() % 10;
 			int walltype = 0;
-			if (doorchance == 1) {
-				walltype = 2;
-				roomNum++;
-			}
+			//if (doorchance == 1) {
+			//	walltype = 2;
+			//	roomNum++;
+			//}
 
 			if (isGoodMove(locX, locY, sizeX, sizeY, NORTH, grid))	{
-			locY = moveNS(NORTH, locY);
-			grid[locY][locX].removeWall(NORTH, walltype);
-			grid[locY][locX].removeWall(reverseDirection(NORTH), walltype);
-		}
+				locY = moveNS(NORTH, locY);
+				grid[locY][locX].removeWall(NORTH, walltype);
+				grid[locY][locX].removeWall(reverseDirection(NORTH), walltype);
+			}
 			else if (isGoodMove(locX, locY, sizeX, sizeY, SOUTH, grid))	  {
 				grid[locY][locX].removeWall(SOUTH, walltype);
 				locY = moveNS(SOUTH, locY);
 				grid[locY][locX].removeWall(reverseDirection(SOUTH), walltype);
 			}
-			else if (isGoodMove(locX, locY, sizeX, sizeY, EAST, grid))	  {	 	
-				grid[locY][locX].removeWall(SOUTH, walltype);
+			else if (isGoodMove(locX, locY, sizeX, sizeY, EAST, grid))	  {
+				grid[locY][locX].removeWall(EAST, walltype);
 				locX = moveEW(EAST, locX);
 				grid[locY][locX].removeWall(reverseDirection(EAST), walltype);
 			}
@@ -75,9 +75,9 @@ void Grid::generate() {
 				grid[locY][locX].removeWall(WEST, walltype);
 				locX = moveEW(WEST, locX);
 				grid[locY][locX].removeWall(reverseDirection(WEST), walltype);
-			}  				
+			}
 
-			
+
 		}
 		else if (nGood == 0){
 			locX = xValues.top();
@@ -90,17 +90,17 @@ void Grid::generate() {
 			yValues.push(locY);
 			int newdirection = 0;
 			do{
-				 newdirection = rand() % 4;
+				newdirection = rand() % 4;
 			} while (!isGoodMove(locX, locY, sizeX, sizeY, newdirection, grid));
 			//the below code is disgusting.
-			grid[locY][locX].been = true;
-			grid[locX][locY].room = roomNum;
-			int doorchance = rand() % 10;
+			//grid[locY][locX].been = true;
+			grid[locY][locX].room = roomNum;
+			//int doorchance = rand() % 10;
 			int walltype = 0;
-			if (doorchance == 1) {
-				walltype = 2;
-				roomNum++;
-			}	  
+			//if (doorchance == 1) {
+			//	walltype = 2;
+			//	roomNum++;
+			//}	  
 			grid[locY][locX].removeWall(newdirection, walltype);
 			locX = moveEW(newdirection, locX);
 			locY = moveNS(newdirection, locY);
@@ -132,12 +132,10 @@ bool Grid::isGoodMove(int x, int y, int sizeX, int sizeY, int direction, std::ve
 	x = moveEW(direction, x);
 	y = moveNS(direction, y);
 
-	if (x >= (sizeX - 1) || x <= 0 || y <= 0 || y >= (sizeY - 1)){
+	if (grid[y][x].been || x >= (sizeX - 1) || x <= 0 || y <= 0 || y >= (sizeY - 1)){
 		return false;
 	}
-	if (grid[y][x].been){
-		return false;
-	}
+
 	if (direction == NORTH){
 		if (!grid[y][x - 1].been &&  !grid[y - 1][x].been && !grid[y][x + 1].been &&  !grid[y - 1][x - 1].been && !grid[y - 1][x + 1].been){
 			return true;
@@ -170,7 +168,7 @@ int Grid::reverseDirection(int direction)
 	else if (direction == EAST)
 		return WEST;
 	else if (direction == WEST)
-	 return EAST;
+		return EAST;
 	else return 10;
 
 }
