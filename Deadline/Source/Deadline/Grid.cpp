@@ -67,11 +67,11 @@ void Grid::generate() {
 			}
 			int doorchance = rand() % 10;
 			if (doorchance == 1) {
-			AddDoor(direction, locX, locY, newlocX, newlocY, roomNum, *&grid);
+			AddDoor(direction, locX, locY, newlocX, newlocY, roomNum, grid);
 				roomNum++;
 			}
 			else{
-				RemoveWalls(direction, locX, locY, newlocX, newlocY, roomNum, *&grid);
+				RemoveWalls(direction, locX, locY, newlocX, newlocY, roomNum, grid);
 			}
 			locX = newlocX;
 			locY = newlocY;
@@ -86,21 +86,21 @@ void Grid::generate() {
 		else if (nGood > 1){
 			xValues.push(locX);
 			yValues.push(locY);
-			
+			int newdirection = 0;
 			do{
 				direction = rand() % 4;
 			} while (!isGoodMove(locX, locY, sizeX, sizeY, direction, grid));
 			//the below code is disgusting.
 
-			int newlocX = moveEW(direction, locX);
-			int newlocY = moveNS(direction, locY);
+			int newlocX = moveEW(newdirection, locX);
+			int newlocY = moveNS(newdirection, locY);
 			int doorchance = rand() % 10;
 			if (doorchance == 1) {
-				grid = AddDoor(direction, locX, locY, newlocX, newlocY, roomNum, grid);
+				AddDoor(direction, locX, locY, newlocX, newlocY, roomNum, grid);
 				roomNum++;
 			}
 			else{
-				grid = RemoveWalls(direction, locX, locY, newlocX, newlocY, roomNum, grid);
+				RemoveWalls(direction, locX, locY, newlocX, newlocY, roomNum, grid);
 			}
 			locX = newlocX;
 			locY = newlocY;	  
@@ -109,21 +109,20 @@ void Grid::generate() {
 	} while (!xValues.empty());
 }
 
-std::vector< std::vector<Cell>> Grid::RemoveWalls(int direction, int currentX, int currentY, int nextX, int nextY, int roomNum, std::vector< std::vector<Cell>> grid)
+void Grid::RemoveWalls(int direction, int currentX, int currentY, int nextX, int nextY, int roomNum, std::vector< std::vector<Cell>> grid)
 {
 	grid[currentY][currentX].been = true;
 	grid[currentY][currentX].room = roomNum;
 	grid[currentY][currentX].removeWall(direction, 0);
 	grid[nextY][nextX].removeWall(reverseDirection(direction), 0);
-	return grid;
 }
-std::vector< std::vector<Cell>> Grid::AddDoor(int direction, int currentX, int currentY, int nextX, int nextY, int roomNum, std::vector< std::vector<Cell>> grid)
+void Grid::AddDoor(int direction, int currentX, int currentY, int nextX, int nextY, int roomNum, std::vector< std::vector<Cell>> grid)
 {
 	grid[currentY][currentX].been = true;
 	grid[currentY][currentX].room = roomNum;
 	grid[currentY][currentX].removeWall(direction, 2);
 	grid[nextY][nextX].removeWall(reverseDirection(direction), 2);
-	return grid;
+
 }
 int Grid::moveEW(int direction, int x)
 {
