@@ -8,22 +8,22 @@
 #include "CorruptionSpread.generated.h"
 
 /**
- * 
+ *
  */
-UCLASS()
+UCLASS( )
 class DEADLINE_API ACorruptionSpread : public AActor
 {
-	GENERATED_UCLASS_BODY()
-	UPROPERTY( Category=Grid, VisibleDefaultsOnly, BlueprintReadOnly )
-	TSubobjectPtr< class USceneComponent > testRoot;
-	UPROPERTY( Category=Grid, EditAnywhere, BlueprintReadOnly )
+	GENERATED_UCLASS_BODY( )
+	UPROPERTY( Category = Grid, VisibleDefaultsOnly, BlueprintReadOnly )
+    TSubobjectPtr< class USceneComponent > testRoot;
+	UPROPERTY( Category = Grid, EditAnywhere, BlueprintReadOnly )
 	float blockSpacing;
-	int32 size;
-    int32 blockCount;
-    std::vector<ACorruptionBlock*> roomArray;
+	float roomCorruptionCounter;
+	int32 blockSize;
+	int32 blockCount;
+	std::vector<ACorruptionBlock*> roomArray;
 	virtual void BeginPlay( ) override;
-	//virtual void Tick( float deltaTime ) override;
-    void CreateStubRoom( );
-    void StartCorruptionSpread( );
-    void CorruptionSpread( );
+	void CreateStubRoom( );
+	void StartCorruptionSpread( );
+	void CorruptionSpread( );
 };
