@@ -5,7 +5,7 @@
 #include "stack"
 #include "ctime"
 #include <vector>
-#include "Cell.h"
+
 
 #define NORTH   0
 #define SOUTH   1
@@ -61,7 +61,7 @@ void Grid::generate() {
 			do{
 				direction = rand() % 4;
 			} while (!isGoodMove(locX, locY, sizeX, sizeY, direction, grid));
-			//break walls  in current cell
+			
 			locX = moveEW(direction, locX);
 			locY = moveNS(direction, locY);
 			//break walls in new cell

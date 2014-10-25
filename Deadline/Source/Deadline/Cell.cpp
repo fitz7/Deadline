@@ -1,6 +1,10 @@
 #include "Deadline.h"
 #include "Cell.h"
 
+#define NORTH   0
+#define EAST   1
+#define SOUTH    2
+#define WEST   3
 
 Cell::Cell()
 {	 //(N,E,S,W)
@@ -9,22 +13,11 @@ Cell::Cell()
 	bool been = false;
 }
 
-void Cell::removeN()
+void Cell::removeWall(int wall, int ID)
 {
-	walls[0] = 0;
+	walls[wall] = ID;
 }
-void Cell::removeE()
-{
-	walls[1] = 0;
-}
-void Cell::removeS()
-{
-	walls[2] = 0;
-}
-void Cell::removeW()
-{
-	walls[3] = 0;
-}
+
 void Cell::setRoom(int roomNum)
 {
 	room = roomNum;

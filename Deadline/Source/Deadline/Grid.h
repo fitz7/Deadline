@@ -6,7 +6,9 @@
 /**
  * 
  */
+
 class DEADLINE_API Grid
+
 {
 
 	public:

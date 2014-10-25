@@ -16,10 +16,11 @@ public:
 	int room;
 	bool been;
 private:
-	void removeN();
-	void removeE();
-	void removeS();
-	void removeW();
+	void removeWall(int, int);
+	void removeN(int);
+	void removeE(int);
+	void removeS(int);
+	void removeW(int);
 	void setRoom(int);
 
 };
