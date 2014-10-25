@@ -11,9 +11,11 @@ ACorruptionBlock::ACorruptionBlock(const class FPostConstructInitializePropertie
 	{
 		ConstructorHelpers::FObjectFinderOptional<UStaticMesh> blockMesh;
 		ConstructorHelpers::FObjectFinderOptional<UMaterialInstance> blueMaterial;
+		ConstructorHelpers::FObjectFinderOptional< UMaterialInstance > orangeMaterial;
 		FConstructorStatics( )
 			: blockMesh( TEXT( "/Game/Meshes/TemplateCube_Rounded.TemplateCube_Rounded" ) ),
-			blueMaterial( TEXT( "/Engine/TemplateResources/MI_Template_BaseBlue.MI_Template_BaseBlue" ) )
+			blueMaterial( TEXT( "/Engine/TemplateResources/MI_Template_BaseBlue.MI_Template_BaseBlue" ) ),
+			orangeMaterial( TEXT( "/Engine/TemplateResources/MI_Template_BaseOrange.MI_Template_BaseOrange" ) )
 		{
 		}
 	};

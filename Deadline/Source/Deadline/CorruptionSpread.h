@@ -3,6 +3,8 @@
 #pragma once
 
 #include "GameFramework/Actor.h"
+#include "CorruptionBlock.h"
+#include <vector>
 #include "CorruptionSpread.generated.h"
 
 /**
@@ -17,6 +19,11 @@ class DEADLINE_API ACorruptionSpread : public AActor
 	UPROPERTY( Category=Grid, EditAnywhere, BlueprintReadOnly )
 	float blockSpacing;
 	int32 size;
+    int32 blockCount;
+    std::vector<ACorruptionBlock*> roomArray;
 	virtual void BeginPlay( ) override;
+	//virtual void Tick( float deltaTime ) override;
     void CreateStubRoom( );
+    void StartCorruptionSpread( );
+    void CorruptionSpread( );
 };
