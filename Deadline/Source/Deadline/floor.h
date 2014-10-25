@@ -12,7 +12,6 @@ UCLASS()
 class DEADLINE_API Afloor : public AActor
 {
 	GENERATED_UCLASS_BODY()
-
-	
-	
+		virtual void BeginPlay() override;
+	void start();
 };

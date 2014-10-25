@@ -15,8 +15,8 @@ public:
 	int walls[4];
 	int room;
 	bool been;
-private:
 	void removeWall(int, int);
+private:		
 	void removeN(int);
 	void removeE(int);
 	void removeS(int);

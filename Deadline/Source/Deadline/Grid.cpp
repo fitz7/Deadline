@@ -30,8 +30,10 @@ void Grid::generate() {
 	int nGood = 0;
 	int direction = 0;
 	int locX = 0, locY = 0;
+	int roomNum = 1;
 	do{
-		grid[locX][locY].been = true;
+		grid[locY][locX].been = true;
+		grid[locX][locY].room = roomNum;
 		for (int i = 0; i < 4; i++)
 		{
 			if (isGoodMove(locX, locY,sizeX,sizeY, i, grid))
@@ -61,10 +63,19 @@ void Grid::generate() {
 			do{
 				direction = rand() % 4;
 			} while (!isGoodMove(locX, locY, sizeX, sizeY, direction, grid));
-			
+			//the below code is disgusting.
+			int doorchance = rand() % 10;
+			int walltype = 0;
+			if (doorchance == 1) {
+				walltype = 2;
+				roomNum++;
+			}
+				
+			grid[locY][locX].removeWall(direction, walltype);
 			locX = moveEW(direction, locX);
 			locY = moveNS(direction, locY);
-			//break walls in new cell
+			grid[locY][locX].removeWall(reverseDirection(direction), walltype);
+
 		}
 		nGood = 0;
 	} while (!xValues.empty());
@@ -90,7 +101,7 @@ int Grid::moveNS(int direction, int y)
 bool Grid::isGoodMove(int x, int y, int sizeX, int sizeY, int direction, std::vector< std::vector<Cell>> grid) {
 	x = moveEW(direction, x);
 	y = moveNS(direction, y);
-
+	
 	if (grid[y][x].been || x >= (sizeX - 1) || x <= 0 || y <= 0 || y >= (sizeY - 1)){
 		return false;
 	}
@@ -117,7 +128,17 @@ bool Grid::isGoodMove(int x, int y, int sizeX, int sizeY, int direction, std::ve
 	return false;
 }
 
-
+int Grid::reverseDirection(int direction)
+{
+	if (direction == NORTH)
+		return SOUTH;
+	else if (direction == SOUTH)
+		return NORTH;
+	else if (direction == EAST)
+		return WEST;
+	else return EAST;
+	
+}
 
 
 
