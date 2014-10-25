@@ -6,7 +6,6 @@ class Cell
 {
 public:	  
 	Cell(int);
-	~Cell();
 	int walls[4];
 	int room;
 private:
