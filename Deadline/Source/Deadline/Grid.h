@@ -25,5 +25,6 @@ class DEADLINE_API Grid
 		
 		bool isGoodMove(int, int, int,int,int, std::vector< std::vector<Cell>>);
 		int reverseDirection(int);
-
+		void RemoveWalls(int, int, int, int, int, int, std::vector< std::vector<Cell>>);
+		void AddDoor(int, int, int, int, int, int, std::vector< std::vector<Cell>>);
 };
