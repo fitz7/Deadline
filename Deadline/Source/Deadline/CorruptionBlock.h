@@ -16,4 +16,10 @@ class DEADLINE_API ACorruptionBlock : public AActor
 	TSubobjectPtr < class USceneComponent > dummyRoot;
 	UPROPERTY( Category = Block, VisibleDefaultsOnly, BlueprintReadOnly )
 	TSubobjectPtr< class UStaticMeshComponent > blockMesh;
+	UPROPERTY( Category = Block, VisibleDefaultsOnly, BlueprintReadOnly )
+	class UMaterialInstance* orangeMaterial;
+	bool blockCorrupted;
+	/*Change Mesh Color*/
+	UFUNCTION( )
+	void ChangeMeshToOrange( );
 };

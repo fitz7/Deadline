@@ -20,13 +20,22 @@ ACorruptionBlock::ACorruptionBlock(const class FPostConstructInitializePropertie
 		}
 	};
 	static FConstructorStatics constructorStatics;
-
 	dummyRoot = PCIP.CreateDefaultSubobject< USceneComponent >( this, TEXT( "Dummy0" ) );
 	RootComponent = dummyRoot;
+	/*Setup the Default Block Mesh and Material*/
 	blockMesh = PCIP.CreateDefaultSubobject< UStaticMeshComponent >( this, TEXT( "BlockMesh0" ) );
 	blockMesh->SetStaticMesh( constructorStatics.blockMesh.Get( ) );
 	blockMesh->SetRelativeScale3D( FVector( 1.0f, 1.0f, 0.25f ) );
 	blockMesh->SetRelativeLocation( FVector( 0.0f, 0.0f, 25.0f ) );
 	blockMesh->SetMaterial( 0, constructorStatics.blueMaterial.Get( ) );
 	blockMesh->AttachTo( dummyRoot );
+	//Save a pointer to the orange Material
+	orangeMaterial = constructorStatics.orangeMaterial.Get( );
+	blockCorrupted = false;
+}
+
+void ACorruptionBlock::ChangeMeshToOrange( )
+{
+	blockMesh->SetMaterial( 0, orangeMaterial );
+	blockCorrupted = true;
 }
