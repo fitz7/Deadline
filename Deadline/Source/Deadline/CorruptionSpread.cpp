@@ -10,23 +10,25 @@ ACorruptionSpread::ACorruptionSpread( const class FPostConstructInitializeProper
 	testRoot = PCIP.CreateDefaultSubobject< USceneComponent >( this, TEXT( "Dummy0" ) );
 	RootComponent = testRoot;
 	blockSpacing = 300.0f;
-	size = 3;
+	size = 7;
 }
 
 void ACorruptionSpread::BeginPlay( )
 {
 	Super::BeginPlay( );
+	CreateStubRoom( );
+}
+
+void ACorruptionSpread::CreateStubRoom( )
+{
 	const int32 numberOfBlocks = size * size;
 
-	ACorruptionBlock* newBlock = GetWorld( )->SpawnActor< ACorruptionBlock >( FVector( 1, 1, 1 ), FRotator( 0, 0, 0 ) );
+	for ( int32 blockIndex = 0; blockIndex < numberOfBlocks; blockIndex++ )
+	{
+		const float xOffSet = ( blockIndex / size ) * blockSpacing;
+		const float yOffSet = ( blockIndex % size ) * blockSpacing;
 
-	//for ( int32 blockIndex = 0; blockIndex < numberOfBlocks; blockIndex++ )
-	//{
-	//	const float xOffSet = ( blockIndex / size ) * blockSpacing;
-	//	const float yOffSet = ( blockIndex % size ) * blockSpacing;
-
-	//	const FVector blockLocation = FVector( xOffSet, yOffSet, 0.0f ) + GetActorLocation( );
-	//	
-	//
-	//}
+		const FVector blockLocation = FVector( xOffSet, yOffSet, 0.0f ) + GetActorLocation( );
+		ACorruptionBlock* newBlock = GetWorld( )->SpawnActor< ACorruptionBlock >( blockLocation, FRotator( 0, 0, 0 ) );
+	}
 }

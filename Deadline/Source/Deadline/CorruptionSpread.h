@@ -18,4 +18,5 @@ class DEADLINE_API ACorruptionSpread : public AActor
 	float blockSpacing;
 	int32 size;
 	virtual void BeginPlay( ) override;
+    void CreateStubRoom( );
 };
