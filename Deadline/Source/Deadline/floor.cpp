@@ -9,7 +9,7 @@
 Afloor::Afloor(const class FPostConstructInitializeProperties& PCIP)
 	: Super(PCIP)
 {
-	Super::BeginPlay();
+	//Super::BeginPlay();
 	Grid* g = new Grid(10,10);
 	
 }

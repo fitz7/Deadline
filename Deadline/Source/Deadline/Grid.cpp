@@ -6,7 +6,7 @@
 #include "ctime"
 #include <vector>
 #include "Cell.h"
-#define NORTH 0
+
 #define NORTH   0
 #define SOUTH   1
 #define EAST    2
@@ -18,30 +18,107 @@ using namespace std;
 
 Grid::Grid(int x, int y)
 {
-	grid.resize(x);
-	for (int i = 0; i < 10; i++)
-		grid[i].resize(y);
+	sizeX = x;
+	sizeY = y;
+	grid.resize(sizeX);
+	for (int i = 0; i < sizeX; i++)
+		grid[i].resize(sizeY);
 }
 void Grid::generate() {
 	stack<int> xValues;
 	stack<int> yValues;
-	int ngGood = 0;
+	int nGood = 0;
+	int direction = 0;
 	int locX = 0, locY = 0;
-	
-	//for (int i = 0; i < 4 i++)
-	//{
-	//	grid[locX][locY].
-	//}
-}
+	do{
+		grid[locX][locY].been = true;
+		for (int i = 0; i < 4; i++)
+		{
+			if (isGoodMove(locX, locY,sizeX,sizeY, i, grid))
+				nGood++;
+		}
 
-void Grid::moveEW(int direction, int x)
+		if (nGood == 1){
+			if (isGoodMove(locX, locY, sizeX, sizeY, NORTH, grid))
+				locY = moveNS(NORTH, locY);
+
+			else if (isGoodMove(locX, locY, sizeX, sizeY, SOUTH, grid))
+				locY = moveNS(SOUTH, locY);
+			else if (isGoodMove(locX, locY, sizeX, sizeY, EAST, grid))
+				locX = moveEW(EAST, locX);
+			else if (isGoodMove(locX, locY, sizeX, sizeY, WEST, grid))
+				locX = moveEW(WEST, locX);
+		}
+		else if (nGood == 0){
+			locX = xValues.top();
+			locY = yValues.top();
+			xValues.pop();
+			yValues.pop();
+		}
+		else if (nGood > 1){
+			xValues.push(locX);
+			yValues.push(locY);
+			do{
+				direction = rand() % 4;
+			} while (!isGoodMove(locX, locY, sizeX, sizeY, direction, grid));
+			//break walls  in current cell
+			locX = moveEW(direction, locX);
+			locY = moveNS(direction, locY);
+			//break walls in new cell
+		}
+		nGood = 0;
+	} while (!xValues.empty());
+}
+int Grid::moveEW(int direction, int x)
 {
-
+	if (direction == EAST)
+		return x + 1;
+	else if (direction == WEST)
+		return x - 1;
+	else
+		return x;
 }
-void Grid::moveNS(int direction, int y)
+int Grid::moveNS(int direction, int y)
 {
-
+	if (direction == NORTH)
+		return y - 1;
+	else if (direction == SOUTH)
+		return y + 1;
+	else
+		return y;
 }
+bool Grid::isGoodMove(int x, int y, int sizeX, int sizeY, int direction, std::vector< std::vector<Cell>> grid) {
+	x = moveEW(direction, x);
+	y = moveNS(direction, y);
+
+	if (grid[y][x].been || x >= (sizeX - 1) || x <= 0 || y <= 0 || y >= (sizeY - 1)){
+		return false;
+	}
+	if (direction == NORTH){
+		if (!grid[y][x - 1].been &&  !grid[y - 1][x].been && !grid[y][x + 1].been &&  !grid[y - 1][x - 1].been && !grid[y - 1][x + 1].been){
+			return true;
+		}
+	}
+	if (direction == SOUTH){
+		if (!grid[y][x - 1].been &&  !grid[y + 1][x].been && !grid[y][x + 1].been && !grid[y + 1][x - 1].been && !grid[y + 1][x + 1].been){
+			return true;
+		}
+	}
+	if (direction == EAST){
+		if (!grid[y][x + 1].been &&  !grid[y - 1][x].been && !grid[y + 1][x].been && !grid[y - 1][x + 1].been && !grid[y + 1][x + 1].been){
+			return true;
+		}
+	}
+	if (direction == WEST){
+		if (!grid[y][x - 1].been &&  !grid[y - 1][x].been && !grid[y + 1][x].been && !grid[y - 1][x - 1].been && !grid[y + 1][x - 1].been){
+			return true;
+		}
+	}
+	return false;
+}
+
+
+
 
 
 Grid::~Grid()

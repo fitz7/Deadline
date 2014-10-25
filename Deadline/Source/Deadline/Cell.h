@@ -14,6 +14,7 @@ public:
 	~Cell();
 	int walls[4];
 	int room;
+	bool been;
 private:
 	void removeN();
 	void removeE();

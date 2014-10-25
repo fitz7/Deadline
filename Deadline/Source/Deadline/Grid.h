@@ -14,8 +14,11 @@ class DEADLINE_API Grid
 		~Grid();
 	private:
 		void generate();
-		void moveEW(int,int);
-		void moveNS(int,int);	 		
+		int sizeX;
+		int sizeY;
+		int moveEW(int, int);
+		int moveNS(int, int);
 		std::vector< std::vector<Cell>> grid;
+		bool isGoodMove(int, int, int,int,int, std::vector< std::vector<Cell>>);
 
 };

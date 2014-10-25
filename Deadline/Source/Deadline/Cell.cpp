@@ -6,6 +6,7 @@ Cell::Cell()
 {	 //(N,E,S,W)
 	int walls[] = { 1, 1, 1, 1 };
 	int room = 0;
+	bool been = false;
 }
 
 void Cell::removeN()
