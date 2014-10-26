@@ -15,6 +15,7 @@ public class OfficeWorker : UnityObserver {
     private WORKER_MOVEMENT workerMovement = WORKER_MOVEMENT.CLOCKWISE;
     private MazeCell currentCell;
     private MazeCell playersCurrentCell;
+    private MazeCell cachedPlayerCell;
     private MazeRoom currentRoom;
     private bool invertClockwiseRotation;
 
@@ -23,8 +24,7 @@ public class OfficeWorker : UnityObserver {
         if ( e.eventMessage == MOVE_ENEMY )
         {
             playersCurrentCell = ( MazeCell )sender;
-            //SearchForPlayer( );
-            Move( currentDirection );
+            SearchForPlayer( );
         }
     }
 
@@ -74,18 +74,28 @@ public class OfficeWorker : UnityObserver {
             Move( currentDirection );
             return;
         }
+        if ( cachedPlayerCell == playersCurrentCell )
+        {
+            return;
+        }
         float currentCellDistance = 1000.0f;
         int closestCellVector = 0;
         for ( int i = 0; i < currentRoom.cells.Count; i++ )
         {
             float distanceWeight = Vector3.Distance( currentRoom.cells[ i ].transform.position,
                                                        playersCurrentCell.transform.position );
-            if ( distanceWeight < currentCellDistance )
+
+            if ( distanceWeight < currentCellDistance 
+                && ( currentRoom.cells[ i ].coordinates.x == ( currentCell.coordinates.x + 1 )
+                     || currentRoom.cells[ i ].coordinates.x == ( currentCell.coordinates.x - 1 ) )
+                && ( currentRoom.cells[ i ].coordinates.z == ( currentCell.coordinates.z + 1 )
+                     || currentRoom.cells[ i ].coordinates.z == ( currentCell.coordinates.z - 1 ) ) )
             {
                 currentCellDistance = distanceWeight;
                 closestCellVector = i;
             }
         }
+        cachedPlayerCell = playersCurrentCell;
         SetLocation( currentRoom.cells[ closestCellVector ] );
     }
 
