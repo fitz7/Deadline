@@ -33,7 +33,6 @@ public class GameManager : MonoBehaviour {
 	}
 
 	private void RestartGame () {
-		//StopAllCoroutines();
 		Destroy(mazeInstance.gameObject);
 		if (playerInstance != null) {
 			Destroy(playerInstance.gameObject);

@@ -8,10 +8,23 @@ public class CorruptionSpread : MonoBehaviour
 
     public void StartCorruption( List< MazeRoom > roomList ){
         currentRooms = roomList;
-        //for ( int i = 0; i < currentRooms.Count; i++ )
-        //{
-        //    currentRooms[ i ].CorruptRoom( );
-        //}
-        StartCoroutine( currentRooms[ 1 ].CorruptRoom( ) );
+        StartCoroutine( CorruptRoom( ) );
+    }
+
+    private IEnumerator CorruptRoom( )
+    {
+        for ( int corruptedRooms = 0; corruptedRooms < currentRooms.Count; )
+        {
+            int roomCorruptionSpread = Random.Range( 0, currentRooms.Count );
+            if ( !currentRooms[ roomCorruptionSpread ].roomIsCorrupted )
+            {
+                yield return StartCoroutine( currentRooms[ roomCorruptionSpread ].CorruptRoom( ) );
+                corruptedRooms++;
+            }
+            if ( corruptedRooms >= currentRooms.Count )
+            {
+                StopAllCoroutines( );
+            }
+        }
     }
 }

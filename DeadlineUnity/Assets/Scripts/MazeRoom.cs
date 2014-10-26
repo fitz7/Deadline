@@ -43,7 +43,7 @@ public class MazeRoom : ScriptableObject {
             List<MeshRenderer> listOfMeshes = new List<MeshRenderer>( );
             listOfMeshes = cells[ i ].GetComponentsInChildren<MeshRenderer>( true ).ToList( );
             listOfMeshes[ 0 ].material = settings.corruptionMaterial;
-            yield return new WaitForSeconds( 1.0f );
+            yield return new WaitForSeconds( 0.009f );
         }
         roomIsCorrupted = true;
     }

@@ -43,7 +43,6 @@ public class Maze : MonoBehaviour {
 
 	public void Generate () {
         corruption = ( GameObject )GameObject.Instantiate( corruption );
-		//WaitForSeconds delay = new WaitForSeconds(generationStepDelay);
 		cells = new MazeCell[size.x, size.z];
 		List<MazeCell> activeCells = new List<MazeCell>();
 		DoFirstGenerationStep(activeCells);
@@ -51,9 +50,9 @@ public class Maze : MonoBehaviour {
 			//yield return delay;
 			DoNextGenerationStep(activeCells);
 		}
-        //for (int i = 0; i < rooms.Count; i++) {
-        //    rooms[i].Hide();
-        //}
+        for (int i = 0; i < rooms.Count; i++) {
+            rooms[i].Hide();
+        }
         corruption.GetComponent< CorruptionSpread >( ).StartCorruption( rooms );
 	}
 
