@@ -62,15 +62,23 @@ MonoBehaviour:
   roomSettings:
   - floorMaterial: {fileID: 2100000, guid: 81dc3caa9feb0ad409551c7d643973a0, type: 2}
     wallMaterial: {fileID: 2100000, guid: 163152b9e7b12a744a15e60b44f42836, type: 2}
+    corruptionMaterial: {fileID: 2100000, guid: f14a25103e14b4d45b6f78eff69a1f53,
+      type: 2}
     corruptionBubble: {fileID: 100000, guid: 840d2ff7d4ec02543b1377779a03277b, type: 2}
   - floorMaterial: {fileID: 2100000, guid: 5dc5f53ee55bfcb48885c01ddb06b1ef, type: 2}
     wallMaterial: {fileID: 2100000, guid: 163152b9e7b12a744a15e60b44f42836, type: 2}
+    corruptionMaterial: {fileID: 2100000, guid: f14a25103e14b4d45b6f78eff69a1f53,
+      type: 2}
     corruptionBubble: {fileID: 100000, guid: 840d2ff7d4ec02543b1377779a03277b, type: 2}
   - floorMaterial: {fileID: 2100000, guid: d05f6c7c1e23f98469771349d21e4dcf, type: 2}
     wallMaterial: {fileID: 2100000, guid: 163152b9e7b12a744a15e60b44f42836, type: 2}
+    corruptionMaterial: {fileID: 2100000, guid: f14a25103e14b4d45b6f78eff69a1f53,
+      type: 2}
     corruptionBubble: {fileID: 100000, guid: 840d2ff7d4ec02543b1377779a03277b, type: 2}
   - floorMaterial: {fileID: 2100000, guid: a47179d434c332b4a81101606f0a6fe2, type: 2}
     wallMaterial: {fileID: 2100000, guid: 163152b9e7b12a744a15e60b44f42836, type: 2}
+    corruptionMaterial: {fileID: 2100000, guid: f14a25103e14b4d45b6f78eff69a1f53,
+      type: 2}
     corruptionBubble: {fileID: 100000, guid: 840d2ff7d4ec02543b1377779a03277b, type: 2}
 --- !u!1001 &100100000
 Prefab:

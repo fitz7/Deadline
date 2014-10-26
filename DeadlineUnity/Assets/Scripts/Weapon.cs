@@ -9,23 +9,15 @@ enum WeaponType
     KEYBOARD,
     PENCIL
 }
-public class Weapon : UnityObserver {
+
+public class Weapon : MonoBehaviour {
 
     public Material[] mats;
-    public const string PickUpWeapon = "PICK_UP_WEAPON";
+    public int ammo;
+    public int damage;
     private MazeCell currentCell;
     private MazeRoom currentRoom;
     WeaponType weaponType;
-    int ammo;
-    int damage;
-
-    public override void OnNotify( Object sender, EventArguments e )
-    {
-        if ( e.eventMessage == PickUpWeapon )
-        {
-            
-        }
-    }
 
     void Awake()
     {
