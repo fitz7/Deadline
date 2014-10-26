@@ -1,10 +1,11 @@
 ﻿using System;
+
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
 public class Maze : MonoBehaviour {
-
+    public OfficeWorker officeWorkerPrefab;
 	public IntVector2 size;
 
 	public MazeCell cellPrefab;
@@ -28,9 +29,12 @@ public class Maze : MonoBehaviour {
 
 	private MazeCell[,] cells;
 
+    private List<OfficeWorker> officeWorkers;
+
+   
 	public IntVector2 RandomCoordinates {
 		get {
-			return new IntVector2(Random.Range(0, size.x), Random.Range(0, size.z));
+            return new IntVector2(UnityEngine.Random.Range(0, size.x), UnityEngine.Random.Range(0, size.z));
 		}
 	}
 
@@ -50,9 +54,10 @@ public class Maze : MonoBehaviour {
 		while (activeCells.Count > 0) {
 			DoNextGenerationStep(activeCells);
 		}
+        UnityEngine.Debug.Log(rooms.Count.ToString());
 		for (int i = 0; i < rooms.Count; i++) {
             SpawnEnemies(rooms[i]);
-            SpawnItems(rooms[i].CountCells());
+            //SpawnItems(rooms[i].CountCells());
 			rooms[i].Hide();
 		}
 	}
@@ -60,23 +65,33 @@ public class Maze : MonoBehaviour {
     public void SpawnEnemies(MazeRoom room)
     {
         int enemycount;
-        
-        if (room.CountCells() <= 5)
+        int numCells = room.CountCells();
+        if (numCells <= 5)
             enemycount = 0;
-        else if (room.CountCells() > 5 && room.CountCells() <= 10)
+        else if (numCells > 5 && numCells <= 10)
             enemycount = 1;
-        else if room.CountCells() > 10 && room.CountCells() <= 15)
-            enemycount = Math.Floor(Random.Range(1, 2));
+        else if (numCells > 10 && numCells <= 15)
+            enemycount = (int)Mathf.Floor(UnityEngine.Random.Range(1, 2));
         else
             enemycount = 2;
-        for (int i = 0; i <= enemycount; i++)
+
+        if(enemycount>0)
+        for (int i = 0; i < enemycount; i++)
         {
-            enemyInstance = Instantiate(EnemyPrefab) as OfficeWorker;
-            enemyInstance.SetLocation(room.RandomCell());
+
+            OfficeWorker  newOfficeWorker = SpawnOfficeWorker(room.RandomCell());
+            officeWorkers.Add(newOfficeWorker);
             
         }
     }
 
+    public OfficeWorker SpawnOfficeWorker(MazeCell cell)
+    {
+        OfficeWorker tempOfficeWorker = Instantiate(officeWorkerPrefab) as OfficeWorker;
+         tempOfficeWorker.SetInitialLocation(cell);
+        tempOfficeWorker.transform.parent = cell.transform;
+        return tempOfficeWorker;
+    }
     public void SpawnItems(int cells)
     {
         int items;
@@ -85,7 +100,7 @@ public class Maze : MonoBehaviour {
         else if (cells > 5 && cells <= 10)
             items = 1;
         else if (cells > 10 && cells <= 15)
-            items = Math.Floor(Random.Range(1, 2));
+            items = (int)Mathf.Floor(UnityEngine.Random.Range(1, 2));
         else
             items = 2;
         for (int i = 0; i <= items; i++)
@@ -138,7 +153,7 @@ public class Maze : MonoBehaviour {
 	}
 
 	private void CreatePassage (MazeCell cell, MazeCell otherCell, MazeDirection direction) {
-		MazePassage prefab = Random.value < doorProbability ? doorPrefab : passagePrefab;
+        MazePassage prefab = UnityEngine.Random.value < doorProbability ? doorPrefab : passagePrefab;
 		MazePassage passage = Instantiate(prefab) as MazePassage;
 		passage.Initialize(cell, otherCell, direction);
 		passage = Instantiate(prefab) as MazePassage;
@@ -165,17 +180,17 @@ public class Maze : MonoBehaviour {
 	}
 
 	private void CreateWall (MazeCell cell, MazeCell otherCell, MazeDirection direction) {
-		MazeWall wall = Instantiate(wallPrefabs[Random.Range(0, wallPrefabs.Length)]) as MazeWall;
+        MazeWall wall = Instantiate(wallPrefabs[UnityEngine.Random.Range(0, wallPrefabs.Length)]) as MazeWall;
 		wall.Initialize(cell, otherCell, direction);
 		if (otherCell != null) {
-			wall = Instantiate(wallPrefabs[Random.Range(0, wallPrefabs.Length)]) as MazeWall;
+            wall = Instantiate(wallPrefabs[UnityEngine.Random.Range(0, wallPrefabs.Length)]) as MazeWall;
 			wall.Initialize(otherCell, cell, direction.GetOpposite());
 		}
 	}
 
 	private MazeRoom CreateRoom (int indexToExclude) {
 		MazeRoom newRoom = ScriptableObject.CreateInstance<MazeRoom>();
-		newRoom.settingsIndex = Random.Range(0, roomSettings.Length);
+        newRoom.settingsIndex = UnityEngine.Random.Range(0, roomSettings.Length);
 		if (newRoom.settingsIndex == indexToExclude) {
 			newRoom.settingsIndex = (newRoom.settingsIndex + 1) % roomSettings.Length;
 		}

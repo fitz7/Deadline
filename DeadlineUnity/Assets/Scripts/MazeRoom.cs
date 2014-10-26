@@ -34,7 +34,7 @@ public class MazeRoom : ScriptableObject {
 
     public MazeCell RandomCell()
     {
-        return cells[Math.Floor(Random.Range(0, cells.Count))];
+        return cells[(int)Mathf.Floor(UnityEngine.Random.Range(0, cells.Count))];
     }
     public void Hide () {
 		for (int i = 0; i < cells.Count; i++) {
