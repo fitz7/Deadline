@@ -18,6 +18,7 @@ public class OfficeWorker : UnityObserver {
     private MazeCell cachedPlayerCell;
     private MazeRoom currentRoom;
     private bool invertClockwiseRotation;
+    private bool workerIsCorrupted;
 
     public override void OnNotify( Object sender, EventArguments e )
     {
@@ -36,15 +37,66 @@ public class OfficeWorker : UnityObserver {
 
     private void SetLocation( MazeCell cell )
     {
+        if ( currentCell != null )
+        {
+            currentCell.cellIsOccupied = false;
+        }
         currentCell = cell;
+        currentCell.cellIsOccupied = true;
+        IsCellCorrupted( );
         this.transform.position = currentCell.transform.position;
     }
 
+    private void IsCellCorrupted( )
+    {
+        if ( currentCell.cellIsCorrupted && !workerIsCorrupted )
+        {
+            workerIsCorrupted = true;
+        }
+    }
+
+    private void SearchForPlayer( )
+    {
+        if ( playersCurrentCell.room != currentRoom || !workerIsCorrupted )
+        {
+            Move( currentDirection );
+            return;
+        }
+        if ( cachedPlayerCell == playersCurrentCell )
+        {
+            return;
+        }
+        float currentCellDistance = 1000.0f;
+        int closestCellVector = 0;
+        for ( int i = 0; i < currentRoom.cells.Count; i++ )
+        {
+            float distanceWeight = Vector3.Distance( currentRoom.cells[ i ].transform.position,
+                                                       playersCurrentCell.transform.position );
+            if( distanceWeight < currentCellDistance
+                && !currentRoom.cells[ i ].cellIsOccupied
+                //Can the AI Move Vertically
+                && ( ( currentRoom.cells[ i ].coordinates.x == ( currentCell.coordinates.x )
+                       && ( currentRoom.cells[ i ].coordinates.z == ( currentCell.coordinates.z + 1 )
+                       || currentRoom.cells[ i ].coordinates.z == ( currentCell.coordinates.z - 1 ) ) )
+                   //Can the AI Move Horizontally
+                   || ( currentRoom.cells[ i ].coordinates.z == ( currentCell.coordinates.z )
+                        && ( currentRoom.cells[ i ].coordinates.x == ( currentCell.coordinates.x + 1 )
+                        || currentRoom.cells[ i ].coordinates.x == ( currentCell.coordinates.x - 1 ) ) ) )
+                )
+            {
+                currentCellDistance = distanceWeight;
+                closestCellVector = i;
+            }
+        }
+        cachedPlayerCell = playersCurrentCell;
+        SetLocation( currentRoom.cells[ closestCellVector ] );
+    }
     private void Move( MazeDirection direction )
     {
         MazeCellEdge edge = currentCell.GetEdge( direction );
-        if ( edge is MazePassage 
-             && edge.otherCell.room == currentRoom )
+        if ( edge is MazePassage
+             && edge.otherCell.room == currentRoom
+             && !edge.otherCell.cellIsOccupied )
         {
             SetLocation( edge.otherCell );
             return;
@@ -66,37 +118,4 @@ public class OfficeWorker : UnityObserver {
             currentDirection = currentDirection.GetNextCounterclockwise( );
         }
     }
-
-    private void SearchForPlayer( )
-    {
-        if ( playersCurrentCell.room != currentRoom )
-        {
-            Move( currentDirection );
-            return;
-        }
-        if ( cachedPlayerCell == playersCurrentCell )
-        {
-            return;
-        }
-        float currentCellDistance = 1000.0f;
-        int closestCellVector = 0;
-        for ( int i = 0; i < currentRoom.cells.Count; i++ )
-        {
-            float distanceWeight = Vector3.Distance( currentRoom.cells[ i ].transform.position,
-                                                       playersCurrentCell.transform.position );
-
-            if ( distanceWeight < currentCellDistance 
-                && ( currentRoom.cells[ i ].coordinates.x == ( currentCell.coordinates.x + 1 )
-                     || currentRoom.cells[ i ].coordinates.x == ( currentCell.coordinates.x - 1 ) )
-                && ( currentRoom.cells[ i ].coordinates.z == ( currentCell.coordinates.z + 1 )
-                     || currentRoom.cells[ i ].coordinates.z == ( currentCell.coordinates.z - 1 ) ) )
-            {
-                currentCellDistance = distanceWeight;
-                closestCellVector = i;
-            }
-        }
-        cachedPlayerCell = playersCurrentCell;
-        SetLocation( currentRoom.cells[ closestCellVector ] );
-    }
-
 }
