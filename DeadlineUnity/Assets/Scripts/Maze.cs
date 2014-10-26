@@ -78,13 +78,18 @@ public class Maze : MonoBehaviour
                 PickObject( cells[ i, j ] );
             }
         }
-        for ( int i = 0; i < rooms.Count; i++ )
-        {
-            //SpawnItems(rooms[i].CountCells());
-            rooms[ i ].Hide( );
-        }
+
+        corruption.GetComponent<CorruptionSpread>( ).StartCorruption( rooms );
     }
 
+    public void HideRooms()
+    {
+        for (int i = 0; i < rooms.Count; i++)
+        {
+
+            rooms[i].Hide();
+        }
+    }
     public void SpawnEnemies(MazeRoom room)
     {
         int enemycount = 0;

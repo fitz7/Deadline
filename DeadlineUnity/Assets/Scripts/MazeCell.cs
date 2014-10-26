@@ -10,6 +10,8 @@ public class MazeCell : MonoBehaviour {
 
     public bool cellIsCorrupted;
 
+    public bool isExit;
+
     public GameObject currentMonsterOnCell;
 
 	private MazeCellEdge[] edges = new MazeCellEdge[MazeDirections.Count];
