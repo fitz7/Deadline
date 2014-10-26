@@ -39,13 +39,13 @@ public class Maze : MonoBehaviour {
 		return cells[coordinates.x, coordinates.z];
 	}
 
-	public IEnumerator Generate () {
-		WaitForSeconds delay = new WaitForSeconds(generationStepDelay);
+	public void Generate () {
+		//WaitForSeconds delay = new WaitForSeconds(generationStepDelay);
 		cells = new MazeCell[size.x, size.z];
 		List<MazeCell> activeCells = new List<MazeCell>();
 		DoFirstGenerationStep(activeCells);
 		while (activeCells.Count > 0) {
-			yield return delay;
+			//yield return delay;
 			DoNextGenerationStep(activeCells);
 		}
 		for (int i = 0; i < rooms.Count; i++) {
