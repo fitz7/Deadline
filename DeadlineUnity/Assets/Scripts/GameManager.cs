@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour {
 		mazeInstance.Generate();
 		playerInstance = Instantiate(playerPrefab) as Player;
 		playerInstance.SetLocation(mazeInstance.GetCell(mazeInstance.RandomCoordinates));
-        CreateStubEnemy( );
+        //CreateStubEnemy( );
 		Camera.main.clearFlags = CameraClearFlags.Depth;
 		Camera.main.rect = new Rect(0f, 0f, 0.5f, 0.5f);
 	}
