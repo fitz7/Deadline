@@ -23,7 +23,8 @@ public class OfficeWorker : UnityObserver {
         if ( e.eventMessage == MOVE_ENEMY )
         {
             playersCurrentCell = ( MazeCell )sender;
-            SearchForPlayer( );
+            //SearchForPlayer( );
+            Move( currentDirection );
         }
     }
 
@@ -36,7 +37,7 @@ public class OfficeWorker : UnityObserver {
     private void SetLocation( MazeCell cell )
     {
         currentCell = cell;
-        transform.localPosition = cell.transform.localPosition;
+        this.transform.position = currentCell.transform.position;
     }
 
     private void Move( MazeDirection direction )
@@ -73,10 +74,19 @@ public class OfficeWorker : UnityObserver {
             Move( currentDirection );
             return;
         }
-        //for ( int i = 0; i < currentRoom.cells.Count; i++ )
-        //{
-        //    if( currentRoom.cells[ i ]. )
-        //}
+        float currentCellDistance = 1000.0f;
+        int closestCellVector = 0;
+        for ( int i = 0; i < currentRoom.cells.Count; i++ )
+        {
+            float distanceWeight = Vector3.Distance( currentRoom.cells[ i ].transform.position,
+                                                       playersCurrentCell.transform.position );
+            if ( distanceWeight < currentCellDistance )
+            {
+                currentCellDistance = distanceWeight;
+                closestCellVector = i;
+            }
+        }
+        SetLocation( currentRoom.cells[ closestCellVector ] );
     }
 
 }
