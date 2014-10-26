@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -49,10 +50,48 @@ public class Maze : MonoBehaviour {
 			DoNextGenerationStep(activeCells);
 		}
 		for (int i = 0; i < rooms.Count; i++) {
+            SpawnEnemies(rooms[i]);
+            SpawnItems(rooms[i].CountCells());
 			rooms[i].Hide();
 		}
 	}
 
+    public void SpawnEnemies(MazeRoom room)
+    {
+        int enemycount;
+        
+        if (room.CountCells() <= 5)
+            enemycount = 0;
+        else if (room.CountCells() > 5 && room.CountCells() <= 10)
+            enemycount = 1;
+        else if room.CountCells() > 10 && room.CountCells() <= 15)
+            enemycount = Math.Floor(Random.Range(1, 2));
+        else
+            enemycount = 2;
+        for (int i = 0; i <= enemycount; i++)
+        {
+            enemyInstance = Instantiate(EnemyPrefab) as OfficeWorker;
+            enemyInstance.SetLocation(room.RandomCell());
+            
+        }
+    }
+
+    public void SpawnItems(int cells)
+    {
+        int items;
+        if (cells <= 5)
+            items = 0;
+        else if (cells > 5 && cells <= 10)
+            items = 1;
+        else if (cells > 10 && cells <= 15)
+            items = Math.Floor(Random.Range(1, 2));
+        else
+            items = 2;
+        for (int i = 0; i <= items; i++)
+        {
+
+        }
+    }
 	private void DoFirstGenerationStep (List<MazeCell> activeCells) {
 		MazeCell newCell = CreateCell(RandomCoordinates);
 		newCell.Initialize(CreateRoom(-1));
