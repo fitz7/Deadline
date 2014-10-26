@@ -29,11 +29,22 @@ public class GameManager : MonoBehaviour {
 		mazeInstance = Instantiate(mazePrefab) as Maze;
 		mazeInstance.Generate();
 		playerInstance = Instantiate(playerPrefab) as Player;
-		playerInstance.SetLocation(mazeInstance.GetCell(mazeInstance.RandomCoordinates));
+	    MazeCell playerloc = mazeInstance.GetCell(mazeInstance.RandomCoordinates);
+		playerInstance.SetLocation(playerloc);
+	    MazeCell exitLoc;
+	    do
+	    {
+            exitLoc = mazeInstance.GetCell(mazeInstance.RandomCoordinates); 
+	    }
+        while (!CanPlaceExit(playerloc.coordinates,exitLoc.coordinates)))
 		Camera.main.clearFlags = CameraClearFlags.Depth;
 		Camera.main.rect = new Rect(0f, 0f, 0.5f, 0.5f);
 	}
 
+    private bool CanPlaceExit(IntVector2 player, IntVector2 exit)
+    {
+        
+    }
 	private void RestartGame () {
 		Destroy(mazeInstance.gameObject);
 		if (playerInstance != null) {
