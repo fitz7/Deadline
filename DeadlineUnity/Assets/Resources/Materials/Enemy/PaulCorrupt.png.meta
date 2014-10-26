@@ -1,7 +1,8 @@
 fileFormatVersion: 2
 guid: 26eb86860cd0bc8428ea93cb1f9db1dc
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: PaulCorrupt
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0

@@ -13,8 +13,13 @@ public class Item : UnityObserver {
     public const string PICK_UP_ITEM = "PICK_UP_ITEM";
     private MazeCell currentCell;
     private MazeRoom currentRoom;
-    ItemType itemType;
-    public string type;
+     ItemType itemType;
+
+    public string GetItemType()
+    {
+        return itemType.ToString();
+        
+    }
     public override void OnNotify( Object sender, EventArguments e )
     {
         if ( e.eventMessage == PICK_UP_ITEM )

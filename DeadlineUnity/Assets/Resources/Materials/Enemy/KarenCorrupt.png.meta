@@ -1,7 +1,8 @@
 fileFormatVersion: 2
 guid: 7704b57cf22c1824e9397d069eceee53
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: KarenCorrupt
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0

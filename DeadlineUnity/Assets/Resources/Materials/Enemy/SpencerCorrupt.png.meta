@@ -1,7 +1,8 @@
 fileFormatVersion: 2
 guid: e9b266b31edca66419cb3ff389ca4c28
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: SpencerCorrupt
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0

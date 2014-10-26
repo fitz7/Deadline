@@ -180,7 +180,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3da3d8ef3655a420ea0f17b69015d33f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 10
+  playerDeathAnimation: {fileID: 100000, guid: e3b1dbbed715849458265a138802419b, type: 2}
 --- !u!124 &12400000
 Behaviour:
   m_ObjectHideFlags: 1

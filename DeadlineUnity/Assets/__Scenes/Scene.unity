@@ -115,19 +115,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400016, guid: 78309207b8f2c8145a94fa7085c5800e, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 400016, guid: 78309207b8f2c8145a94fa7085c5800e, type: 2}
       propertyPath: m_LocalScale.x
-      value: .00362976408
+      value: .00255754474
       objectReference: {fileID: 0}
     - target: {fileID: 400016, guid: 78309207b8f2c8145a94fa7085c5800e, type: 2}
       propertyPath: m_LocalScale.y
-      value: .00362976408
+      value: .00255754474
       objectReference: {fileID: 0}
     - target: {fileID: 400016, guid: 78309207b8f2c8145a94fa7085c5800e, type: 2}
       propertyPath: m_LocalScale.z
-      value: .00362976408
+      value: .00255754474
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 78309207b8f2c8145a94fa7085c5800e, type: 2}
@@ -145,7 +145,8 @@ GameObject:
   - 114: {fileID: 155537039}
   - 114: {fileID: 155537038}
   - 65: {fileID: 155537037}
-  m_Layer: 8
+  - 114: {fileID: 155537040}
+  m_Layer: 5
   m_Name: Control - Simple Text Box
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -159,7 +160,7 @@ Transform:
   m_PrefabInternal: {fileID: 73571631}
   m_GameObject: {fileID: 155537035}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -413, y: -177, z: 0}
+  m_LocalPosition: {x: -545, y: -177, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1009220802}
@@ -180,8 +181,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 126, y: 79, z: 0}
-  m_Center: {x: 63, y: -39.5, z: 0}
+  m_Size: {x: 200, y: 120, z: 0}
+  m_Center: {x: 100, y: -60, z: 0}
 --- !u!114 &155537038
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -238,15 +239,15 @@ MonoBehaviour:
     relative: 1
     absolute: 0
   updateAnchors: 1
-  mColor: {r: 1, g: 1, b: 1, a: 1}
+  mColor: {r: 0, g: 0, b: 0, a: 1}
   mPivot: 0
-  mWidth: 126
-  mHeight: 79
+  mWidth: 200
+  mHeight: 120
   mDepth: 0
   autoResizeBoxCollider: 1
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 1.59493673
+  aspectRatio: 1.66666663
   mType: 1
   mFillDirection: 4
   mFillAmount: 1
@@ -260,6 +261,22 @@ MonoBehaviour:
   mAtlas: {fileID: 11400000, guid: 62adb30369acbf943a67cee0f69267a3, type: 2}
   mSpriteName: Highlight - Shadowed
   mFillCenter: 1
+--- !u!114 &155537040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400020, guid: 78309207b8f2c8145a94fa7085c5800e,
+    type: 2}
+  m_PrefabInternal: {fileID: 73571631}
+  m_GameObject: {fileID: 155537035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9a4deba978205942ad6bebbebb8e180, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthLabel: {fileID: 1666956081}
+  ammoLabel: {fileID: 1124970364}
+  damageLabel: {fileID: 532986813}
+  weaponSprite: {fileID: 453511699}
 --- !u!1 &393251958
 GameObject:
   m_ObjectHideFlags: 0
@@ -332,7 +349,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 453511700}
   - 114: {fileID: 453511699}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: CurrentWeapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -411,8 +428,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 532986812}
   - 114: {fileID: 532986813}
-  m_Layer: 8
-  m_Name: Health
+  m_Layer: 5
+  m_Name: Damage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -425,7 +442,7 @@ Transform:
   m_PrefabInternal: {fileID: 73571631}
   m_GameObject: {fileID: 532986811}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 99, y: -28, z: 0}
+  m_LocalPosition: {x: 109, y: -45, z: 0}
   m_LocalScale: {x: .99990797, y: .99990797, z: .99990797}
   m_Children: []
   m_Father: {fileID: 155537036}
@@ -445,34 +462,34 @@ MonoBehaviour:
   leftAnchor:
     target: {fileID: 155537036}
     relative: 0
-    absolute: 99
+    absolute: 109
   rightAnchor:
     target: {fileID: 155537036}
     relative: 1
-    absolute: -10
+    absolute: -61
   bottomAnchor:
     target: {fileID: 155537036}
     relative: 0
-    absolute: 31
+    absolute: 45
   topAnchor:
     target: {fileID: 155537036}
     relative: 1
-    absolute: -28
+    absolute: -45
   updateAnchors: 1
-  mColor: {r: 1, g: 1, b: 1, a: .447058827}
+  mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 0
-  mWidth: 17
-  mHeight: 20
+  mWidth: 30
+  mHeight: 30
   mDepth: 1
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: .850000024
+  aspectRatio: 1
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 0}
-  mFont: {fileID: 11400000, guid: 29056518aafb01b49a5b08faf8e30cff, type: 2}
+  mTrueTypeFont: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+  mFont: {fileID: 0}
   mText: 0
-  mFontSize: 20
+  mFontSize: 30
   mFontStyle: 0
   mAlignment: 0
   mEncoding: 1
@@ -503,22 +520,13 @@ GameObject:
   - 4: {fileID: 641215610}
   - 20: {fileID: 641215609}
   - 114: {fileID: 641215608}
-  - 81: {fileID: 641215607}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &641215607
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 8100000, guid: 78309207b8f2c8145a94fa7085c5800e,
-    type: 2}
-  m_PrefabInternal: {fileID: 73571631}
-  m_GameObject: {fileID: 641215606}
-  m_Enabled: 1
 --- !u!114 &641215608
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -580,7 +588,7 @@ Camera:
   m_Depth: 2
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 288
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -611,7 +619,7 @@ GameObject:
   - 114: {fileID: 757779648}
   - 114: {fileID: 757779647}
   - 54: {fileID: 757779646}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: UI Root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -626,7 +634,7 @@ Transform:
   m_GameObject: {fileID: 757779644}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: .00362976408, y: .00362976408, z: .00362976408}
+  m_LocalScale: {x: .00255754474, y: .00255754474, z: .00255754474}
   m_Children:
   - {fileID: 641215610}
   - {fileID: 155537036}
@@ -759,15 +767,15 @@ Camera:
   m_BackGroundColor: {r: .192156866, g: .301960796, b: .474509805, a: .0196078438}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: -.180000007
-    y: -.100000001
+    x: .5
+    y: .449999988
     width: .5
     height: .5
   near clip plane: .300000012
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 20
+  orthographic size: 10
   m_Depth: 1
   m_CullingMask:
     serializedVersion: 2
@@ -786,7 +794,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 869097189}
   m_LocalRotation: {x: .707106829, y: 0, z: 0, w: .707106829}
-  m_LocalPosition: {x: 0, y: 5, z: 0}
+  m_LocalPosition: {x: -6, y: 5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -800,7 +808,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1009220802}
   - 114: {fileID: 1009220803}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -848,19 +856,19 @@ MonoBehaviour:
     relative: 1
     absolute: -8
   updateAnchors: 1
-  mColor: {r: 1, g: 1, b: 1, a: .447058827}
+  mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 0
-  mWidth: 108
-  mHeight: 63
+  mWidth: 182
+  mHeight: 104
   mDepth: 1
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 1.71428573
+  aspectRatio: 1.75
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 0}
-  mFont: {fileID: 11400000, guid: 29056518aafb01b49a5b08faf8e30cff, type: 2}
-  mText: "Health    : \nDamage :\nAmmo    :"
+  mTrueTypeFont: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+  mFont: {fileID: 0}
+  mText: "Health    : \n\nDamage :\n\nAmmo    :"
   mFontSize: 20
   mFontStyle: 0
   mAlignment: 0
@@ -891,8 +899,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 1124970363}
   - 114: {fileID: 1124970364}
-  m_Layer: 8
-  m_Name: Health
+  m_Layer: 5
+  m_Name: Ammo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -905,7 +913,7 @@ Transform:
   m_PrefabInternal: {fileID: 73571631}
   m_GameObject: {fileID: 1124970362}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 99, y: -48, z: 0}
+  m_LocalPosition: {x: 109, y: -86, z: 0}
   m_LocalScale: {x: .99990797, y: .99990797, z: .99990797}
   m_Children: []
   m_Father: {fileID: 155537036}
@@ -925,34 +933,34 @@ MonoBehaviour:
   leftAnchor:
     target: {fileID: 155537036}
     relative: 0
-    absolute: 99
+    absolute: 109
   rightAnchor:
     target: {fileID: 155537036}
     relative: 1
-    absolute: -10
+    absolute: -61
   bottomAnchor:
     target: {fileID: 155537036}
     relative: 0
-    absolute: 11
+    absolute: 4
   topAnchor:
     target: {fileID: 155537036}
     relative: 1
-    absolute: -48
+    absolute: -86
   updateAnchors: 1
-  mColor: {r: 1, g: 1, b: 1, a: .447058827}
+  mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 0
-  mWidth: 17
-  mHeight: 20
+  mWidth: 30
+  mHeight: 30
   mDepth: 1
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: .850000024
+  aspectRatio: 1
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 0}
-  mFont: {fileID: 11400000, guid: 29056518aafb01b49a5b08faf8e30cff, type: 2}
+  mTrueTypeFont: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+  mFont: {fileID: 0}
   mText: 0
-  mFontSize: 20
+  mFontSize: 30
   mFontStyle: 0
   mAlignment: 0
   mEncoding: 1
@@ -1003,7 +1011,6 @@ MonoBehaviour:
   mazePrefab: {fileID: 11400000, guid: a2395bb8a91944f21b621f2614d6db99, type: 2}
   playerPrefab: {fileID: 11400000, guid: 4c6e2fb6da7fd4f5aa5c8463ebb46e79, type: 2}
   exitPrefab: {fileID: 11400000, guid: 55967c308b2788045b03b82c04461994, type: 2}
-  Level: 1
 --- !u!4 &1464554643
 Transform:
   m_ObjectHideFlags: 0
@@ -1024,7 +1031,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1528537161}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: NGUI Snapshot Point 30
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1052,7 +1059,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1666956080}
   - 114: {fileID: 1666956081}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: Health
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1066,7 +1073,7 @@ Transform:
   m_PrefabInternal: {fileID: 73571631}
   m_GameObject: {fileID: 1666956079}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 99, y: -8, z: 0}
+  m_LocalPosition: {x: 109, y: -8, z: 0}
   m_LocalScale: {x: .99990797, y: .99990797, z: .99990797}
   m_Children: []
   m_Father: {fileID: 155537036}
@@ -1086,34 +1093,34 @@ MonoBehaviour:
   leftAnchor:
     target: {fileID: 155537036}
     relative: 0
-    absolute: 99
+    absolute: 109
   rightAnchor:
     target: {fileID: 155537036}
     relative: 1
-    absolute: -10
+    absolute: -61
   bottomAnchor:
     target: {fileID: 155537036}
     relative: 0
-    absolute: 51
+    absolute: 82
   topAnchor:
     target: {fileID: 155537036}
     relative: 1
     absolute: -8
   updateAnchors: 1
-  mColor: {r: 1, g: 1, b: 1, a: .447058827}
+  mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 0
-  mWidth: 17
-  mHeight: 20
+  mWidth: 30
+  mHeight: 30
   mDepth: 1
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: .850000024
+  aspectRatio: 1
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 0}
-  mFont: {fileID: 11400000, guid: 29056518aafb01b49a5b08faf8e30cff, type: 2}
+  mTrueTypeFont: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+  mFont: {fileID: 0}
   mText: 0
-  mFontSize: 20
+  mFontSize: 30
   mFontStyle: 0
   mAlignment: 0
   mEncoding: 1

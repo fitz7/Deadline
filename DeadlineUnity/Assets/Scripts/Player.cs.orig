@@ -3,8 +3,13 @@ using System.Collections;
 
 public class Player : UnityObserver {
 
-    private int health = 20;
+<<<<<<< HEAD
+    public int health = 20;
     private int MAXHP = 20;
+=======
+    private int health = 20;
+
+>>>>>>> 2078e4c723a932f0bcd74f2a3afd9d0e60a8d0fd
     public const string ATTACK_PLAYER = "ATTACK_PLAYER";
 
     public GameObject playerDeathAnimation;
@@ -174,8 +179,12 @@ public class Player : UnityObserver {
         health = health - damage;
         if ( health < 0 )
         {
+<<<<<<< HEAD
+            Application.LoadLevel( 0 );
+=======
             endGame = true;
             StartCoroutine(EndGame());
+>>>>>>> 2078e4c723a932f0bcd74f2a3afd9d0e60a8d0fd
         }
     }
 
