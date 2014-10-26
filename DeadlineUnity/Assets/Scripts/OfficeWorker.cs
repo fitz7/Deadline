@@ -21,6 +21,7 @@ public class OfficeWorker : UnityObserver
     public Material[] good;
     public Material[] bad;
     public const string MOVE_ENEMY = "MOVE_ENEMY";
+    public const string CORRUPT_ENEMY = "CORRUPT_ENEMY";
     private MazeDirection currentDirection;
     private WORKER_MOVEMENT workerMovement = WORKER_MOVEMENT.CLOCKWISE;
     private MazeCell currentCell;
@@ -35,6 +36,19 @@ public class OfficeWorker : UnityObserver
     void Start()
     {
         SelectRandomEnemy();
+    }
+
+    public override void OnNotify(Object sender, EventArguments e)
+    {
+        if (e.eventMessage == MOVE_ENEMY)
+        {
+            playersCurrentCell = (MazeCell)sender;
+            SearchForPlayer();
+        }
+        else if (e.eventMessage == CORRUPT_ENEMY && ( MazeCell )sender == currentCell)
+        {
+            CorruptOfficeWorker( );
+        }
     }
 
     private void SelectRandomEnemy()
@@ -80,23 +94,14 @@ public class OfficeWorker : UnityObserver
         else if (enemyType == EnemyType.Female)
         {
             Material[] Female = new Material[1];
-            Female[0] = bad[0];
+            Female[0] = bad[1];
             transform.GetChild(0).renderer.materials = Female;
         }
         else if (enemyType == EnemyType.Janitor)
         {
             Material[] Janitor = new Material[1];
-            Janitor[0] = bad[0];
+            Janitor[0] = bad[2];
             transform.GetChild(0).renderer.materials = Janitor;
-        }
-    }
-
-    public override void OnNotify(Object sender, EventArguments e)
-    {
-        if (e.eventMessage == MOVE_ENEMY)
-        {
-            playersCurrentCell = (MazeCell)sender;
-            SearchForPlayer();
         }
     }
 
@@ -115,21 +120,17 @@ public class OfficeWorker : UnityObserver
         }
         currentCell = cell;
         currentCell.currentMonsterOnCell = this;
-        IsCellCorrupted();
+        if (currentCell.cellIsCorrupted)
+        {
+            CorruptOfficeWorker();
+        }
         this.transform.position = currentCell.transform.position;
     }
 
-    private void IsCellCorrupted()
+    private void CorruptOfficeWorker()
     {
-        if (currentCell.cellIsCorrupted && !workerIsCorrupted)
-        {
-            ChangeEnemySprite();
-            workerIsCorrupted = true;
-        }
-        if (workerIsCorrupted)
-        {
-            currentCell.cellIsOccupied = true;
-        }
+        ChangeEnemySprite();
+        currentCell.cellIsOccupied = true;
     }
 
     private void SearchForPlayer()

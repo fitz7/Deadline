@@ -59,6 +59,7 @@ public class MazeRoom : ScriptableObject {
             corruption.transform.parent = cells[ i ].transform;
             corruption.transform.position = cells[ i ].transform.position;
             cells[i].cellIsCorrupted = true;
+            Subject.NotifySendAll( cells[i], OfficeWorker.CORRUPT_ENEMY, "" );
             yield return new WaitForSeconds( 0.009f );
         }
         roomIsCorrupted = true;
