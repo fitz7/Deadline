@@ -52,9 +52,12 @@ public class MazeRoom : ScriptableObject {
     {
         for ( int i = 0; i < cells.Count; i++ )
         {
-            List<MeshRenderer> listOfMeshes = new List<MeshRenderer>( );
-            listOfMeshes = cells[ i ].GetComponentsInChildren<MeshRenderer>( true ).ToList( );
-            listOfMeshes[ 0 ].material = settings.corruptionMaterial;
+            //List<MeshRenderer> listOfMeshes = new List<MeshRenderer>( );
+            //listOfMeshes = cells[ i ].GetComponentsInChildren<MeshRenderer>( true ).ToList( );
+            //listOfMeshes[ 0 ].material = settings.corruptionMaterial;
+            GameObject corruption = Instantiate( settings.corruptionBubble ) as GameObject;
+            corruption.transform.parent = cells[ i ].transform;
+            corruption.transform.position = cells[ i ].transform.position;
             yield return new WaitForSeconds( 0.009f );
         }
         roomIsCorrupted = true;
