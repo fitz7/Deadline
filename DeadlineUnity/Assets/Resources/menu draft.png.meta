@@ -1,8 +1,8 @@
 fileFormatVersion: 2
-guid: f0bb23e703e2c0c4b88df7dcd37b61ee
+guid: dbe00781b9da09349bb3f2bdd3305e80
 TextureImporter:
   fileIDToRecycleName:
-    21300000: DeadlineMan
+    21300000: menu draft
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -22,7 +22,7 @@ TextureImporter:
   grayScaleToAlpha: 0
   generateCubemap: 0
   seamlessCubemap: 0
-  textureFormat: -1
+  textureFormat: 5
   maxTextureSize: 1024
   textureSettings:
     filterMode: -1

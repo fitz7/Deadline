@@ -1,8 +1,8 @@
 fileFormatVersion: 2
-guid: f0bb23e703e2c0c4b88df7dcd37b61ee
+guid: 40c84f5a741012348a74aca9ba51c0d6
 TextureImporter:
   fileIDToRecycleName:
-    21300000: DeadlineMan
+    21300000: Exit Button Highlighted
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -22,7 +22,7 @@ TextureImporter:
   grayScaleToAlpha: 0
   generateCubemap: 0
   seamlessCubemap: 0
-  textureFormat: -1
+  textureFormat: 5
   maxTextureSize: 1024
   textureSettings:
     filterMode: -1
