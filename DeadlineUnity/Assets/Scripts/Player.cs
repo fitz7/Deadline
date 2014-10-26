@@ -4,7 +4,7 @@ using System.Collections;
 public class Player : UnityObserver {
 
     public int health = 20;
-
+    private int MAXHP = 20;
     public const string ATTACK_PLAYER = "ATTACK_PLAYER";
 
     private int baseDamage = 3;
@@ -71,10 +71,29 @@ public class Player : UnityObserver {
         if ( currentCell.currentItem != null )
         {
             DestroyImmediate( currentCell.currentItem.gameObject );
-            health += 2;
-            if ( health > 20 )
+            string type = currentCell.currentItem.GetItemType();
+            if (type == ItemType.Health.ToString())
             {
-                health = 20;
+                health += 2;
+                if (health > MAXHP)
+                {
+                    health = MAXHP;
+                }
+                Debug.Log("HEALTH PACK 2");
+            }
+            if (type == ItemType.Armor.ToString())
+            {
+                health += 4;
+                if (health > MAXHP)
+                {
+                    health = MAXHP;
+                }
+                Debug.Log("HEALTH PACK 4");
+            }
+            if (type == ItemType.HealthUp.ToString())
+            {
+                MAXHP += 5;
+                Debug.Log("HEALTH INCREASE");
             }
         }
     }
@@ -131,7 +150,7 @@ public class Player : UnityObserver {
         health = health - damage;
         if ( health < 0 )
         {
-            Application.LoadLevel( 2 );
+            Application.LoadLevel( 0 );
         }
     }
 
