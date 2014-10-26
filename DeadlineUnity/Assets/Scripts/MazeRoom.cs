@@ -52,15 +52,22 @@ public class MazeRoom : ScriptableObject {
     {
         for ( int i = 0; i < cells.Count; i++ )
         {
-            //List<MeshRenderer> listOfMeshes = new List<MeshRenderer>( );
-            //listOfMeshes = cells[ i ].GetComponentsInChildren<MeshRenderer>( true ).ToList( );
-            //listOfMeshes[ 0 ].material = settings.corruptionMaterial;
-            GameObject corruption = Instantiate( settings.corruptionBubble ) as GameObject;
-            corruption.transform.parent = cells[ i ].transform;
-            corruption.transform.position = cells[ i ].transform.position;
+            List<MeshRenderer> listOfMeshes = new List<MeshRenderer>( );
+            listOfMeshes = cells[ i ].GetComponentsInChildren<MeshRenderer>( true ).ToList( );
+            listOfMeshes[ 0 ].material = settings.corruptionMaterial;
+            int spawnBubble = UnityEngine.Random.Range( 0, 10 );
+            if ( spawnBubble > 5 )
+            {
+                GameObject corruption = Instantiate( settings.corruptionBubble ) as GameObject;
+                corruption.transform.parent = cells[ i ].transform;
+                corruption.transform.position = cells[ i ].transform.position;
+                corruption.transform.position = new Vector3( cells[ i ].transform.position.x,
+                                                             0.5f,
+                                                             cells[ i ].transform.position.z );
+            }
             cells[i].cellIsCorrupted = true;
             Subject.NotifySendAll( cells[i], OfficeWorker.CORRUPT_ENEMY, "" );
-            yield return new WaitForSeconds( 0.009f );
+            yield return new WaitForSeconds( 1.0f );
         }
         roomIsCorrupted = true;
     }
