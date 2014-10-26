@@ -2,14 +2,24 @@
 using System.Collections;
 
 public enum WORKER_MOVEMENT
-{ 
+{
     CLOCKWISE,
     COUNTER_CLOCKWISE,
     OPPOSITE
 }
 
-public class OfficeWorker : UnityObserver {
+public enum EnemyType
+{
+    Female,
+    Male,
+    Janitor
+}
 
+public class OfficeWorker : UnityObserver
+{
+
+    public Material[] good;
+    public Material[] bad;
     public const string MOVE_ENEMY = "MOVE_ENEMY";
     private MazeDirection currentDirection;
     private WORKER_MOVEMENT workerMovement = WORKER_MOVEMENT.CLOCKWISE;
@@ -18,52 +28,113 @@ public class OfficeWorker : UnityObserver {
     private MazeCell cachedPlayerCell;
     private MazeRoom currentRoom;
     private bool workerIsCorrupted;
+    private EnemyType enemyType;
+    private int health;
+    private int damage;
 
-    public override void OnNotify( Object sender, EventArguments e )
+    void Start()
     {
-        if ( e.eventMessage == MOVE_ENEMY )
+        SelectRandomEnemy();
+    }
+
+    private void SelectRandomEnemy()
+    {
+        int enumCount = EnemyType.GetNames(typeof(EnemyType)).Length;
+        System.Random rnd = new System.Random();
+        int selection = rnd.Next(0, 10);
+
+        if (selection <= 5)
         {
-            playersCurrentCell = ( MazeCell )sender;
-            SearchForPlayer( );
+            enemyType = EnemyType.Male;
+            Material[] male = new Material[1];
+            male[0] = good[0];
+            transform.GetChild(0).renderer.materials = male;
+        }
+        else if (selection > 5 && selection < 9)
+        {
+            enemyType = EnemyType.Female;
+            Material[] female = new Material[1];
+            female[0] = good[1];
+            transform.GetChild(0).renderer.materials = female;
+        }
+        else if (selection == 9)
+        {
+            enemyType = EnemyType.Janitor;
+            Material[] janitor = new Material[1];
+            janitor[0] = good[2];
+            transform.GetChild(0).renderer.materials = janitor;
         }
     }
 
-    public void SetInitialLocation( MazeCell cell )
+    private void ChangeEnemySprite()
     {
-        currentRoom = cell.room;
-        SetLocation( cell );
+        if (enemyType == EnemyType.Male)
+        {
+            Material[] male = new Material[1];
+            male[0] = bad[0];
+            transform.GetChild(0).renderer.materials = male;
+        }
+        else if (enemyType == EnemyType.Female)
+        {
+            Material[] Female = new Material[1];
+            Female[0] = bad[0];
+            transform.GetChild(0).renderer.materials = Female;
+        }
+        else if (enemyType == EnemyType.Janitor)
+        {
+            Material[] Janitor = new Material[1];
+            Janitor[0] = bad[0];
+            transform.GetChild(0).renderer.materials = Janitor;
+        }
     }
 
-    private void SetLocation( MazeCell cell )
+    public override void OnNotify(Object sender, EventArguments e)
     {
-        if ( currentCell != null )
+        if (e.eventMessage == MOVE_ENEMY)
+        {
+            playersCurrentCell = (MazeCell)sender;
+            SearchForPlayer();
+        }
+    }
+
+    public void SetInitialLocation(MazeCell cell)
+    {
+        currentRoom = cell.room;
+        SetLocation(cell);
+    }
+
+    private void SetLocation(MazeCell cell)
+    {
+        if (currentCell != null)
         {
             currentCell.cellIsOccupied = false;
             currentCell.currentMonsterOnCell = null;
         }
         currentCell = cell;
         currentCell.currentMonsterOnCell = this.gameObject;
-        IsCellCorrupted( );
+        IsCellCorrupted();
         this.transform.position = currentCell.transform.position;
     }
 
-    private void IsCellCorrupted( )
+    private void IsCellCorrupted()
     {
-        if ( currentCell.cellIsCorrupted && !workerIsCorrupted )
+        if (currentCell.cellIsCorrupted && !workerIsCorrupted)
         {
+            Debug.Log( "MONSTER CORRUPTED" );
+            ChangeEnemySprite();
             workerIsCorrupted = true;
         }
-        if ( workerIsCorrupted )
+        if (workerIsCorrupted)
         {
             currentCell.cellIsOccupied = true;
         }
     }
 
-    private void SearchForPlayer( )
+    private void SearchForPlayer()
     {
-        if ( playersCurrentCell.room != currentRoom || !workerIsCorrupted )
+        if (playersCurrentCell.room != currentRoom || !workerIsCorrupted)
         {
-            Move( currentDirection );
+            Move(currentDirection);
             return;
         }
         //if ( cachedPlayerCell == playersCurrentCell )
@@ -72,20 +143,20 @@ public class OfficeWorker : UnityObserver {
         //}
         float currentCellDistance = 1000.0f;
         int closestCellVector = 0;
-        for ( int i = 0; i < currentRoom.cells.Count; i++ )
+        for (int i = 0; i < currentRoom.cells.Count; i++)
         {
-            float distanceWeight = Vector3.Distance( currentRoom.cells[ i ].transform.position,
-                                                       playersCurrentCell.transform.position );
-            if( distanceWeight < currentCellDistance
-                && !currentRoom.cells[ i ].cellIsOccupied
+            float distanceWeight = Vector3.Distance(currentRoom.cells[i].transform.position,
+                                                       playersCurrentCell.transform.position);
+            if (distanceWeight < currentCellDistance
+                && !currentRoom.cells[i].cellIsOccupied
                 //Can the AI Move Vertically
-                && ( ( currentRoom.cells[ i ].coordinates.x == ( currentCell.coordinates.x )
-                       && ( currentRoom.cells[ i ].coordinates.z == ( currentCell.coordinates.z + 1 )
-                       || currentRoom.cells[ i ].coordinates.z == ( currentCell.coordinates.z - 1 ) ) )
-                   //Can the AI Move Horizontally
-                   || ( currentRoom.cells[ i ].coordinates.z == ( currentCell.coordinates.z )
-                        && ( currentRoom.cells[ i ].coordinates.x == ( currentCell.coordinates.x + 1 )
-                        || currentRoom.cells[ i ].coordinates.x == ( currentCell.coordinates.x - 1 ) ) ) )
+                && ((currentRoom.cells[i].coordinates.x == (currentCell.coordinates.x)
+                       && (currentRoom.cells[i].coordinates.z == (currentCell.coordinates.z + 1)
+                       || currentRoom.cells[i].coordinates.z == (currentCell.coordinates.z - 1)))
+                //Can the AI Move Horizontally
+                   || (currentRoom.cells[i].coordinates.z == (currentCell.coordinates.z)
+                        && (currentRoom.cells[i].coordinates.x == (currentCell.coordinates.x + 1)
+                        || currentRoom.cells[i].coordinates.x == (currentCell.coordinates.x - 1))))
                 )
             {
                 currentCellDistance = distanceWeight;
@@ -93,33 +164,42 @@ public class OfficeWorker : UnityObserver {
             }
         }
         cachedPlayerCell = playersCurrentCell;
-        SetLocation( currentRoom.cells[ closestCellVector ] );
+        SetLocation(currentRoom.cells[closestCellVector]);
     }
-    private void Move( MazeDirection direction )
+    private void Move(MazeDirection direction)
     {
-        MazeCellEdge edge = currentCell.GetEdge( direction );
-        if ( edge is MazePassage
+        MazeCellEdge edge = currentCell.GetEdge(direction);
+        if (edge is MazePassage
              && edge.otherCell.room == currentRoom
-             && !edge.otherCell.cellIsOccupied )
+             && !edge.otherCell.cellIsOccupied)
         {
-            SetLocation( edge.otherCell );
+            SetLocation(edge.otherCell);
             return;
         }
-        workerMovement = ( WORKER_MOVEMENT )Random.Range( 0, 3 );
-        if ( workerMovement == WORKER_MOVEMENT.CLOCKWISE )
+        workerMovement = (WORKER_MOVEMENT)Random.Range(0, 3);
+        if (workerMovement == WORKER_MOVEMENT.CLOCKWISE)
         {
-            currentDirection = currentDirection.GetNextClockwise( );
+            currentDirection = currentDirection.GetNextClockwise();
             return;
         }
 
-        if ( workerMovement == WORKER_MOVEMENT.OPPOSITE )
+        if (workerMovement == WORKER_MOVEMENT.OPPOSITE)
         {
-            currentDirection = currentDirection.GetOpposite( );
+            currentDirection = currentDirection.GetOpposite();
             return;
         }
-        if ( workerMovement == WORKER_MOVEMENT.COUNTER_CLOCKWISE )
+        if (workerMovement == WORKER_MOVEMENT.COUNTER_CLOCKWISE)
         {
-            currentDirection = currentDirection.GetNextCounterclockwise( );
+            currentDirection = currentDirection.GetNextCounterclockwise();
+        }
+    }
+
+    public void AttackEnemy(int damage)
+    {
+        health = health - damage;
+        if (health < 0)
+        {
+            Destroy(this.gameObject);
         }
     }
 }
