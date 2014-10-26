@@ -5,14 +5,18 @@ using System.Collections;
 enum ItemType
 {
     Health,
+<<<<<<< HEAD
     Armor,
     HealthUp
+=======
+>>>>>>> 373c8c25137863b2aa2807fcd6bec671b1ee250f
 }
 public class Item : UnityObserver {
     public Material[] mats;
     public const string PICK_UP_ITEM = "PICK_UP_ITEM";
     private MazeCell currentCell;
     private MazeRoom currentRoom;
+<<<<<<< HEAD
     ItemType itemType;
     public string type;
     public override void OnNotify( Object sender, EventArguments e )
@@ -26,6 +30,9 @@ public class Item : UnityObserver {
     {
         RandomItem();
     }
+=======
+
+>>>>>>> 373c8c25137863b2aa2807fcd6bec671b1ee250f
     public void SetInitialLocation( MazeCell cell )
     {
         currentRoom = cell.room;
