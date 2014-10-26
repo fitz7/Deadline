@@ -67,8 +67,11 @@ public class Maze : MonoBehaviour
         for (int i = 0; i < rooms.Count; i++)
         {
             SpawnEnemies(rooms[i]);
+        }
+        for ( int i = 0; i < rooms.Count; i++ )
+        {
             //SpawnItems(rooms[i].CountCells());
-            rooms[i].Hide();
+            rooms[ i ].Hide( );
         }
     }
 
@@ -95,19 +98,17 @@ public class Maze : MonoBehaviour
         if (enemycount > 0)
             for (int i = 0; i < enemycount; i++)
             {
-
-                OfficeWorker newOfficeWorker = SpawnOfficeWorker(room.RandomCell());
-                officeWorkers.Add(newOfficeWorker);
-
+                SpawnOfficeWorker(room.RandomCell());
+                //officeWorkers.Add(newOfficeWorker);
             }
     }
 
-    public OfficeWorker SpawnOfficeWorker(MazeCell cell)
+    public void SpawnOfficeWorker(MazeCell cell)
     {
         OfficeWorker tempOfficeWorker = Instantiate(officeWorkerPrefab) as OfficeWorker;
         tempOfficeWorker.SetInitialLocation(cell);
         tempOfficeWorker.transform.parent = cell.transform;
-        return tempOfficeWorker;
+        officeWorkers.Add( tempOfficeWorker );
     }
     public void SpawnItems(int cells)
     {

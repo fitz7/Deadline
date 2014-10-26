@@ -31,23 +31,23 @@ public class Player : MonoBehaviour {
     {
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
         {
-            Move(currentDirection);
             Subject.NotifySendAll( currentCell, OfficeWorker.MOVE_ENEMY, " " );
+            Move(currentDirection);
         }
         else if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
         {
-            Move(currentDirection.GetNextClockwise());
             Subject.NotifySendAll( currentCell, OfficeWorker.MOVE_ENEMY, " " );
+            Move(currentDirection.GetNextClockwise());
         }
         else if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
         {
-            Move(currentDirection.GetOpposite());
             Subject.NotifySendAll( currentCell, OfficeWorker.MOVE_ENEMY, " " );
+            Move(currentDirection.GetOpposite());
         }
         else if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            Move(currentDirection.GetNextCounterclockwise());
             Subject.NotifySendAll( currentCell, OfficeWorker.MOVE_ENEMY, " " );
+            Move(currentDirection.GetNextCounterclockwise());
         }
 
     }
