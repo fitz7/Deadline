@@ -412,6 +412,8 @@ MonoBehaviour:
   mazePrefab: {fileID: 11400000, guid: a2395bb8a91944f21b621f2614d6db99, type: 2}
   playerPrefab: {fileID: 11400000, guid: 4c6e2fb6da7fd4f5aa5c8463ebb46e79, type: 2}
   officeWorkerPrefab: {fileID: 11400000, guid: a928abe5d37fc024680f8821e4e96120, type: 2}
+  exitPrefab: {fileID: 11400000, guid: 55967c308b2788045b03b82c04461994, type: 2}
+  Level: 1
 --- !u!4 &1464554643
 Transform:
   m_ObjectHideFlags: 0

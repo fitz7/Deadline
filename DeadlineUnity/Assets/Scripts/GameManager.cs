@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 
 public class GameManager : MonoBehaviour {
@@ -9,10 +10,15 @@ public class GameManager : MonoBehaviour {
 
     public OfficeWorker officeWorkerPrefab;
 
+    public Exit exitPrefab;
+
 	private Maze mazeInstance;
 
 	private Player playerInstance;
 
+    private Exit exitInstance;
+
+    public int Level = 1;
 	private void Start () {
 		BeginGame();
 	}
@@ -29,11 +35,29 @@ public class GameManager : MonoBehaviour {
 		mazeInstance = Instantiate(mazePrefab) as Maze;
 		mazeInstance.Generate();
 		playerInstance = Instantiate(playerPrefab) as Player;
-		playerInstance.SetLocation(mazeInstance.GetCell(mazeInstance.RandomCoordinates));
+	    MazeCell playerloc = mazeInstance.GetCell(mazeInstance.RandomCoordinates);
+		playerInstance.SetLocation(playerloc);
+	    MazeCell exitLoc;
+	    do
+	    {
+	        exitLoc = mazeInstance.GetCell(mazeInstance.RandomCoordinates);
+	    } while (!CanPlaceExit(playerloc, exitLoc));
+	    exitInstance = Instantiate(exitPrefab) as Exit;
+	    exitInstance.SetInitialLocation(exitLoc);
+	    exitInstance.transform.parent = exitLoc.transform;
 		Camera.main.clearFlags = CameraClearFlags.Depth;
 		Camera.main.rect = new Rect(0f, 0f, 0.5f, 0.5f);
 	}
 
+    private bool CanPlaceExit(MazeCell player, MazeCell exit)
+    {
+        int xd = player.coordinates.x - exit.coordinates.x;
+        int yd = player.coordinates.z - exit.coordinates.z;
+        float distance = Mathf.Sqrt(xd*xd + yd*yd);
+        if (distance>9 && player.room != exit.room)
+            return true;
+        else return false;
+    }
 	private void RestartGame () {
 		Destroy(mazeInstance.gameObject);
 		if (playerInstance != null) {
@@ -41,4 +65,15 @@ public class GameManager : MonoBehaviour {
 		}
     BeginGame();
 	}
+
+    private void NextLevel()
+    {
+        Destroy(mazeInstance.gameObject);
+        if (playerInstance != null)
+        {
+            Destroy(playerInstance.gameObject);
+        }
+        Level++;
+        BeginGame();
+    }
 }

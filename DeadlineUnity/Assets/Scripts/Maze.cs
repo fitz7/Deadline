@@ -66,7 +66,7 @@ public class Maze : MonoBehaviour
         {
             DoNextGenerationStep(activeCells);
         }
-        UnityEngine.Debug.Log(rooms.Count.ToString());
+        
         for (int i = 0; i < rooms.Count; i++)
         {
             SpawnEnemies(rooms[i]);

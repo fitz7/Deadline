@@ -1,8 +1,7 @@
 fileFormatVersion: 2
-guid: ed14fa923eca91a42bccfae2a08359e0
+guid: 571523c47393d0041bb8fbe007b8c129
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: CarpetRed
+  fileIDToRecycleName: {}
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
