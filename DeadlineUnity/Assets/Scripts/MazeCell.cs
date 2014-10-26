@@ -6,13 +6,15 @@ public class MazeCell : MonoBehaviour {
 
 	public MazeRoom room;
 
+    public Item currentItem;
+
     public bool cellIsOccupied;
 
     public bool cellIsCorrupted;
 
     public bool isExit;
 
-    public GameObject currentMonsterOnCell;
+    public OfficeWorker currentMonsterOnCell;
 
 	private MazeCellEdge[] edges = new MazeCellEdge[MazeDirections.Count];
 

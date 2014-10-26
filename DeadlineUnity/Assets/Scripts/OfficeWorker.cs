@@ -49,6 +49,7 @@ public class OfficeWorker : UnityObserver
             Material[] male = new Material[1];
             male[0] = good[0];
             transform.GetChild(0).renderer.materials = male;
+            health = 5;
         }
         else if (selection > 5 && selection < 9)
         {
@@ -56,6 +57,7 @@ public class OfficeWorker : UnityObserver
             Material[] female = new Material[1];
             female[0] = good[1];
             transform.GetChild(0).renderer.materials = female;
+            health = 7;
         }
         else if (selection == 9)
         {
@@ -63,6 +65,7 @@ public class OfficeWorker : UnityObserver
             Material[] janitor = new Material[1];
             janitor[0] = good[2];
             transform.GetChild(0).renderer.materials = janitor;
+            health = 10;
         }
     }
 
@@ -111,7 +114,7 @@ public class OfficeWorker : UnityObserver
             currentCell.currentMonsterOnCell = null;
         }
         currentCell = cell;
-        currentCell.currentMonsterOnCell = this.gameObject;
+        currentCell.currentMonsterOnCell = this;
         IsCellCorrupted();
         this.transform.position = currentCell.transform.position;
     }
@@ -120,7 +123,6 @@ public class OfficeWorker : UnityObserver
     {
         if (currentCell.cellIsCorrupted && !workerIsCorrupted)
         {
-            Debug.Log( "MONSTER CORRUPTED" );
             ChangeEnemySprite();
             workerIsCorrupted = true;
         }
@@ -137,10 +139,6 @@ public class OfficeWorker : UnityObserver
             Move(currentDirection);
             return;
         }
-        //if ( cachedPlayerCell == playersCurrentCell )
-        //{
-        //    return;
-        //}
         float currentCellDistance = 1000.0f;
         int closestCellVector = 0;
         for (int i = 0; i < currentRoom.cells.Count; i++)
@@ -148,7 +146,6 @@ public class OfficeWorker : UnityObserver
             float distanceWeight = Vector3.Distance(currentRoom.cells[i].transform.position,
                                                        playersCurrentCell.transform.position);
             if (distanceWeight < currentCellDistance
-                && !currentRoom.cells[i].cellIsOccupied
                 //Can the AI Move Vertically
                 && ((currentRoom.cells[i].coordinates.x == (currentCell.coordinates.x)
                        && (currentRoom.cells[i].coordinates.z == (currentCell.coordinates.z + 1)
@@ -162,6 +159,11 @@ public class OfficeWorker : UnityObserver
                 currentCellDistance = distanceWeight;
                 closestCellVector = i;
             }
+        }
+        if ( currentRoom.cells[ closestCellVector ].cellIsOccupied
+             || currentRoom.cells[ closestCellVector ].currentMonsterOnCell == this )
+        {
+            return;
         }
         cachedPlayerCell = playersCurrentCell;
         SetLocation(currentRoom.cells[closestCellVector]);
@@ -199,7 +201,9 @@ public class OfficeWorker : UnityObserver
         health = health - damage;
         if (health < 0)
         {
-            Destroy(this.gameObject);
+            currentCell.currentMonsterOnCell = null;
+            currentCell.cellIsOccupied = false;
+            DestroyImmediate( this.gameObject );
         }
     }
 }

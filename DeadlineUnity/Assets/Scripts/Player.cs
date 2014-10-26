@@ -18,6 +18,7 @@ public class Player : MonoBehaviour {
 		}
 		currentCell = cell;
         currentCell.cellIsOccupied = true;
+        CheckForItems( );
 		transform.localPosition = cell.transform.localPosition;
 		currentCell.OnPlayerEntered();
         if(currentCell.isExit)
@@ -40,7 +41,15 @@ public class Player : MonoBehaviour {
 
     private void AttackMonster( MazeCell occupiedCell )
     {
+        occupiedCell.currentMonsterOnCell.AttackEnemy( baseDamage );
+    }
 
+    private void CheckForItems( )
+    {
+        if ( currentCell.currentItem != null )
+        {
+            DestroyImmediate( currentCell.currentItem.gameObject );
+        }
     }
 
 	private void Look (MazeDirection direction) {
