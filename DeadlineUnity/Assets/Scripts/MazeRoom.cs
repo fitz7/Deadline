@@ -48,7 +48,7 @@ public class MazeRoom : ScriptableObject {
 		}
 	}
 
-    public IEnumerator CorruptRoom( )
+    public IEnumerator CorruptRoom( float corruptionSpeed )
     {
         for ( int i = 0; i < cells.Count; i++ )
         {
@@ -58,7 +58,8 @@ public class MazeRoom : ScriptableObject {
             GameObject corruption = Instantiate( settings.corruptionBubble ) as GameObject;
             corruption.transform.parent = cells[ i ].transform;
             corruption.transform.position = cells[ i ].transform.position;
-            yield return new WaitForSeconds( 0.009f );
+            cells[ i ].cellIsCorrupted = true;
+            yield return new WaitForSeconds( corruptionSpeed );
         }
         roomIsCorrupted = true;
     }

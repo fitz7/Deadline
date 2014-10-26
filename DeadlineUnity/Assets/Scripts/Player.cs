@@ -11,16 +11,19 @@ public class Player : MonoBehaviour {
 
 	public void SetLocation (MazeCell cell) {
 		if (currentCell != null) {
+            currentCell.cellIsOccupied = false;
 			currentCell.OnPlayerExited();
 		}
 		currentCell = cell;
+        currentCell.cellIsOccupied = true;
 		transform.localPosition = cell.transform.localPosition;
 		currentCell.OnPlayerEntered();
 	}
 
 	private void Move (MazeDirection direction) {
 		MazeCellEdge edge = currentCell.GetEdge(direction);
-		if (edge is MazePassage) {
+        if ( edge is MazePassage && !edge.otherCell.cellIsOccupied )
+        {
 			SetLocation(edge.otherCell);
 		}
 	}
@@ -38,23 +41,23 @@ public class Player : MonoBehaviour {
         }
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
         {
-            StartCoroutine( WaitForAITurn( ) );
             Move(currentDirection);
+            StartCoroutine( WaitForAITurn( ) );
         }
         else if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
         {
-            StartCoroutine( WaitForAITurn( ) );
             Move(currentDirection.GetNextClockwise());
+            StartCoroutine( WaitForAITurn( ) );
         }
         else if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
         {
-            StartCoroutine( WaitForAITurn( ) );
             Move(currentDirection.GetOpposite());
+            StartCoroutine( WaitForAITurn( ) );
         }
         else if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            StartCoroutine( WaitForAITurn( ) );
             Move(currentDirection.GetNextCounterclockwise());
+            StartCoroutine( WaitForAITurn( ) );
         }
 
     }
@@ -63,7 +66,7 @@ public class Player : MonoBehaviour {
     {
         coroutineRunning = true;
         yield return new WaitForSeconds( 0.3f );
-        Subject.NotifySendAll( currentCell, OfficeWorker.MOVE_ENEMY, " " );
         coroutineRunning = false;
+        Subject.NotifySendAll( currentCell, OfficeWorker.MOVE_ENEMY, " " );
     }
 }
