@@ -11,8 +11,6 @@ public class Player : MonoBehaviour {
 
 	private MazeDirection currentDirection;
 
-    private bool coroutineRunning;
-
 	public void SetLocation (MazeCell cell) {
 		if (currentCell != null) {
             currentCell.cellIsOccupied = false;
@@ -52,38 +50,26 @@ public class Player : MonoBehaviour {
 
     private void Update()
     {
-        if ( coroutineRunning )
-        {
-            return;
-        }
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
         {
             Move(currentDirection);
-            StartCoroutine( WaitForAITurn( ) );
+            Subject.NotifySendAll( currentCell, OfficeWorker.MOVE_ENEMY, " " );
         }
         else if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
         {
             Move(currentDirection.GetNextClockwise());
-            StartCoroutine( WaitForAITurn( ) );
+            Subject.NotifySendAll( currentCell, OfficeWorker.MOVE_ENEMY, " " );
         }
         else if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
         {
             Move(currentDirection.GetOpposite());
-            StartCoroutine( WaitForAITurn( ) );
+            Subject.NotifySendAll( currentCell, OfficeWorker.MOVE_ENEMY, " " );
         }
         else if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
         {
             Move(currentDirection.GetNextCounterclockwise());
-            StartCoroutine( WaitForAITurn( ) );
+            Subject.NotifySendAll( currentCell, OfficeWorker.MOVE_ENEMY, " " );
         }
 
-    }
-
-    private IEnumerator WaitForAITurn( )
-    {
-        coroutineRunning = true;
-        yield return new WaitForSeconds( 0.3f );
-        coroutineRunning = false;
-        Subject.NotifySendAll( currentCell, OfficeWorker.MOVE_ENEMY, " " );
     }
 }
