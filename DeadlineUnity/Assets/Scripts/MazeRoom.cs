@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 public class MazeRoom : ScriptableObject {
 
@@ -7,7 +9,9 @@ public class MazeRoom : ScriptableObject {
 
 	public MazeRoomSettings settings;
 	
-	private List<MazeCell> cells = new List<MazeCell>();
+	public List<MazeCell> cells = new List<MazeCell>();
+
+    public bool roomIsCorrupted;
 
 	public void Add (MazeCell cell) {
 		cell.room = this;
@@ -31,4 +35,16 @@ public class MazeRoom : ScriptableObject {
 			cells[i].Show();
 		}
 	}
+
+    public IEnumerator CorruptRoom( )
+    {
+        for ( int i = 0; i < cells.Count; i++ )
+        {
+            List<MeshRenderer> listOfMeshes = new List<MeshRenderer>( );
+            listOfMeshes = cells[ i ].GetComponentsInChildren<MeshRenderer>( true ).ToList( );
+            listOfMeshes[ 0 ].material = settings.corruptionMaterial;
+            yield return new WaitForSeconds( 1.0f );
+        }
+        roomIsCorrupted = true;
+    }
 }

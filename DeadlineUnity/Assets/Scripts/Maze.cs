@@ -14,6 +14,8 @@ public class Maze : MonoBehaviour {
 
 	public MazeDoor doorPrefab;
 
+    public GameObject corruption;
+
 	[Range(0f, 1f)]
 	public float doorProbability;
 
@@ -21,9 +23,9 @@ public class Maze : MonoBehaviour {
 
 	public MazeRoomSettings[] roomSettings;
 
-	private MazeCell[,] cells;
+    private List<MazeRoom> rooms = new List<MazeRoom>( );
 
-	private List<MazeRoom> rooms = new List<MazeRoom>();
+	private MazeCell[,] cells;
 
 	public IntVector2 RandomCoordinates {
 		get {
@@ -40,6 +42,7 @@ public class Maze : MonoBehaviour {
 	}
 
 	public IEnumerator Generate () {
+        //corruption = GameObject.Instantiate( corruption );
 		WaitForSeconds delay = new WaitForSeconds(generationStepDelay);
 		cells = new MazeCell[size.x, size.z];
 		List<MazeCell> activeCells = new List<MazeCell>();
@@ -48,9 +51,10 @@ public class Maze : MonoBehaviour {
 			yield return delay;
 			DoNextGenerationStep(activeCells);
 		}
-		for (int i = 0; i < rooms.Count; i++) {
-			rooms[i].Hide();
-		}
+        //for (int i = 0; i < rooms.Count; i++) {
+        //    rooms[i].Hide();
+        //}
+        corruption.GetComponent< CorruptionSpread >( ).StartCorruption( rooms );
 	}
 
 	private void DoFirstGenerationStep (List<MazeCell> activeCells) {
