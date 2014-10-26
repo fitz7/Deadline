@@ -40,6 +40,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   officeWorkerPrefab: {fileID: 11400000, guid: a928abe5d37fc024680f8821e4e96120, type: 2}
+  itemPrefab: {fileID: 11400000, guid: 79f6627d44492bc4ca903a22e5d2ef57, type: 2}
+  weaponPrefab: {fileID: 11400000, guid: f7463ace6426a66419bbcc9366c3dba8, type: 2}
   size:
     x: 20
     z: 20
