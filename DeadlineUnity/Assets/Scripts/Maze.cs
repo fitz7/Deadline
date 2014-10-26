@@ -60,6 +60,7 @@ public class Maze : MonoBehaviour
     {
         corruption = (GameObject)GameObject.Instantiate(corruption);
         cells = new MazeCell[size.x, size.z];
+
         List<MazeCell> activeCells = new List<MazeCell>();
         DoFirstGenerationStep(activeCells);
         while (activeCells.Count > 0)
