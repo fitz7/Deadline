@@ -5,6 +5,8 @@ using System.Collections;
 enum ItemType
 {
     Health,
+    Armor,
+    HealthUp
 }
 public class Item : UnityObserver {
     public Material[] mats;
