@@ -3,7 +3,7 @@ using System.Collections;
 
 
 
-enum WeaponType
+public enum WeaponType
 {
     STAPLER,
     KEYBOARD,
@@ -13,11 +13,11 @@ enum WeaponType
 public class Weapon : MonoBehaviour {
 
     public Material[] mats;
+    public WeaponType weaponType;
     public int ammo;
     public int damage;
     private MazeCell currentCell;
     private MazeRoom currentRoom;
-    WeaponType weaponType;
 
     void Start()
     {

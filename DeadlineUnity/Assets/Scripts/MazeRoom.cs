@@ -67,7 +67,12 @@ public class MazeRoom : ScriptableObject {
             }
             cells[i].cellIsCorrupted = true;
             Subject.NotifySendAll( cells[i], OfficeWorker.CORRUPT_ENEMY, "" );
-            yield return new WaitForSeconds( 1.0f );
+            int subtractLevel = GameManager.Level;
+            if ( subtractLevel > 1 )
+            {
+                subtractLevel -= 1;
+            }
+            yield return new WaitForSeconds( 0.009f ); //( 1 / subtractLevel )
         }
         roomIsCorrupted = true;
     }

@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Player : UnityObserver {
 
-    public int health = 20;
+    private int health = 20;
 
     public const string ATTACK_PLAYER = "ATTACK_PLAYER";
 
@@ -34,13 +34,13 @@ public class Player : UnityObserver {
 		currentCell.OnPlayerEntered();
         if(currentCell.isExit)
             Subject.Notify(GameManager.NEXT_LEVEL);
+        Subject.NotifyExtendedMessage( InGameStats.UPDATE_DAMAGE, baseDamage.ToString( ) );
+        Subject.NotifyExtendedMessage( InGameStats.UPDATE_AMMO, currentPlayerAmmo.ToString( ) );
+        Subject.NotifyExtendedMessage( InGameStats.UPDATE_HEALTH, health.ToString( ) );
         
 	}
 
 	private void Move (MazeDirection direction) {
-        Debug.Log( "HEALTH: " + health );
-        Debug.Log( "AMMO: " + currentPlayerAmmo );
-        Debug.Log( "DAMAGE: " + baseDamage );
 		MazeCellEdge edge = currentCell.GetEdge(direction);
         if ( edge is MazePassage )
         {
@@ -62,7 +62,9 @@ public class Player : UnityObserver {
         }
         if( currentPlayerAmmo <= 0 )
         {
+            Subject.Notify( InGameStats.CLEAR_WEAPON );
             currentPlayerAmmo = 0;
+            baseDamage = 3;
         }
     }
 
@@ -76,6 +78,7 @@ public class Player : UnityObserver {
             {
                 health = 20;
             }
+            Subject.NotifyExtendedMessage( InGameStats.UPDATE_HEALTH, health.ToString( ) );
         }
     }
 
@@ -86,7 +89,10 @@ public class Player : UnityObserver {
             baseDamage = 3;
             baseDamage = currentCell.currentWeapon.damage + baseDamage;
             currentPlayerAmmo = currentCell.currentWeapon.ammo;
+            Subject.Notify( currentCell.currentWeapon.weaponType.ToString( ) );
             DestroyImmediate( currentCell.currentWeapon.gameObject );
+            Subject.NotifyExtendedMessage( InGameStats.UPDATE_DAMAGE, baseDamage.ToString( ) );
+            Subject.NotifyExtendedMessage( InGameStats.UPDATE_AMMO, currentPlayerAmmo.ToString( ) );
         }
     }
 
@@ -127,12 +133,11 @@ public class Player : UnityObserver {
 
     public void AttackPlayer( int damage )
     {
-        Debug.Log( "ATTACK: " + health );
+        Subject.NotifyExtendedMessage( InGameStats.UPDATE_HEALTH, health.ToString( ) );
         health = health - damage;
         if ( health < 0 )
         {
             Application.LoadLevel( 2 );
         }
     }
-
 }

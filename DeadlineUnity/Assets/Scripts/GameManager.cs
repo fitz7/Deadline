@@ -19,7 +19,7 @@ public class GameManager : UnityObserver {
 
     private Exit exitInstance;
 
-    public int Level = 1;
+    public static int Level = 1;
 	private void Start () {
 		BeginGame();
 	}
@@ -42,8 +42,6 @@ public class GameManager : UnityObserver {
     }
 
     private void BeginGame () {
-		Camera.main.clearFlags = CameraClearFlags.Skybox;
-		Camera.main.rect = new Rect(0f, 0f, 1f, 1f);
 		mazeInstance = Instantiate(mazePrefab) as Maze;
 		mazeInstance.Generate();
         if(Level ==1 )
@@ -61,8 +59,6 @@ public class GameManager : UnityObserver {
 	    exitLoc.isExit = true;
         mazeInstance.HideRooms();
         playerInstance.SetLocation(playerloc);
-		Camera.main.clearFlags = CameraClearFlags.Depth;
-		Camera.main.rect = new Rect(0f, 0f, 0.5f, 0.5f);
 	}
 
     private bool CanPlaceExit(MazeCell player, MazeCell exit)
@@ -75,6 +71,7 @@ public class GameManager : UnityObserver {
         else return false;
     }
 	private void RestartGame () {
+        Level = 1;
 		Destroy(mazeInstance.gameObject);
 		if (playerInstance != null) {
 			Destroy(playerInstance.gameObject);
