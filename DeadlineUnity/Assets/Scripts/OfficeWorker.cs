@@ -77,13 +77,13 @@ public class OfficeWorker : UnityObserver
         else if (enemyType == EnemyType.Female)
         {
             Material[] Female = new Material[1];
-            Female[0] = bad[0];
+            Female[0] = bad[1];
             transform.GetChild(0).renderer.materials = Female;
         }
         else if (enemyType == EnemyType.Janitor)
         {
             Material[] Janitor = new Material[1];
-            Janitor[0] = bad[0];
+            Janitor[0] = bad[2];
             transform.GetChild(0).renderer.materials = Janitor;
         }
     }
