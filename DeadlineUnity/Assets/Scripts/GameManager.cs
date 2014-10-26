@@ -25,9 +25,11 @@ public class GameManager : UnityObserver {
 	}
 	
 	private void Update () {
-		if (Input.GetKeyDown(KeyCode.Space)) {
+#if UNITY_EDITOR
+		if (Input.GetKeyDown(KeyCode.KeypadEnter)) {
 			NextLevel();
 		}
+#endif
 	}
 
     public override void OnNotify(Object sender, EventArguments e)
