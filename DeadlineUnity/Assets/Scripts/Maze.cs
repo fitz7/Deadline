@@ -144,6 +144,7 @@ public class Maze : MonoBehaviour
         tempItem.SetInitialLocation(cell);
         tempItem.transform.parent = cell.transform;
         items.Add(tempItem);
+        cell.currentItem = tempItem;
     }
 
     public void SpawnWeapon(MazeCell cell)
