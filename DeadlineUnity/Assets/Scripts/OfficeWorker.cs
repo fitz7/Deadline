@@ -17,7 +17,6 @@ public class OfficeWorker : UnityObserver {
     private MazeCell playersCurrentCell;
     private MazeCell cachedPlayerCell;
     private MazeRoom currentRoom;
-    private bool invertClockwiseRotation;
     private bool workerIsCorrupted;
 
     public override void OnNotify( Object sender, EventArguments e )
@@ -40,9 +39,10 @@ public class OfficeWorker : UnityObserver {
         if ( currentCell != null )
         {
             currentCell.cellIsOccupied = false;
+            currentCell.currentMonsterOnCell = null;
         }
         currentCell = cell;
-        currentCell.cellIsOccupied = true;
+        currentCell.currentMonsterOnCell = this.gameObject;
         IsCellCorrupted( );
         this.transform.position = currentCell.transform.position;
     }
@@ -53,6 +53,10 @@ public class OfficeWorker : UnityObserver {
         {
             workerIsCorrupted = true;
         }
+        if ( workerIsCorrupted )
+        {
+            currentCell.cellIsOccupied = true;
+        }
     }
 
     private void SearchForPlayer( )
@@ -62,10 +66,10 @@ public class OfficeWorker : UnityObserver {
             Move( currentDirection );
             return;
         }
-        if ( cachedPlayerCell == playersCurrentCell )
-        {
-            return;
-        }
+        //if ( cachedPlayerCell == playersCurrentCell )
+        //{
+        //    return;
+        //}
         float currentCellDistance = 1000.0f;
         int closestCellVector = 0;
         for ( int i = 0; i < currentRoom.cells.Count; i++ )

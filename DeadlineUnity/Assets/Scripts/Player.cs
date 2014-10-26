@@ -3,6 +3,10 @@ using System.Collections;
 
 public class Player : MonoBehaviour {
 
+    public int health = 10;
+
+    private int baseDamage = 3;
+
 	private MazeCell currentCell;
 
 	private MazeDirection currentDirection;
@@ -22,11 +26,21 @@ public class Player : MonoBehaviour {
 
 	private void Move (MazeDirection direction) {
 		MazeCellEdge edge = currentCell.GetEdge(direction);
-        if ( edge is MazePassage && !edge.otherCell.cellIsOccupied )
+        if ( edge is MazePassage )
         {
+            if ( edge.otherCell.cellIsOccupied )
+            {
+                AttackMonster( edge.otherCell );
+                return;
+            }
 			SetLocation(edge.otherCell);
 		}
 	}
+
+    private void AttackMonster( MazeCell occupiedCell )
+    {
+
+    }
 
 	private void Look (MazeDirection direction) {
 		transform.localRotation = direction.ToRotation();
