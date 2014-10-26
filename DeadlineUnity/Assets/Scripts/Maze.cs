@@ -83,6 +83,7 @@ public class Maze : MonoBehaviour
             //SpawnItems(rooms[i].CountCells());
             rooms[ i ].Hide( );
         }
+        corruption.GetComponent<CorruptionSpread>( ).StartCorruption( rooms );
     }
 
     public void SpawnEnemies(MazeRoom room)

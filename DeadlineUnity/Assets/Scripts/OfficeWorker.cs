@@ -57,7 +57,7 @@ public class OfficeWorker : UnityObserver {
 
     private void SearchForPlayer( )
     {
-        if ( playersCurrentCell.room != currentRoom )
+        if ( playersCurrentCell.room != currentRoom || !workerIsCorrupted )
         {
             Move( currentDirection );
             return;

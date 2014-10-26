@@ -18,7 +18,7 @@ public class CorruptionSpread : MonoBehaviour
             int roomCorruptionSpread = Random.Range( 0, currentRooms.Count );
             if ( !currentRooms[ roomCorruptionSpread ].roomIsCorrupted )
             {
-                yield return StartCoroutine( currentRooms[ roomCorruptionSpread ].CorruptRoom( 1.5f ) );
+                yield return StartCoroutine( currentRooms[ roomCorruptionSpread ].CorruptRoom( 0.05f ) );
                 corruptedRooms++;
             }
             if ( corruptedRooms >= currentRooms.Count )
