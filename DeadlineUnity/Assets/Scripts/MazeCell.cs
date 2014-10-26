@@ -12,6 +12,8 @@ public class MazeCell : MonoBehaviour {
 
     public bool isExit;
 
+    public GameObject currentMonsterOnCell;
+
 	private MazeCellEdge[] edges = new MazeCellEdge[MazeDirections.Count];
 
 	private int initializedEdgeCount;
