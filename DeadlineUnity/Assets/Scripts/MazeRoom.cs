@@ -58,6 +58,7 @@ public class MazeRoom : ScriptableObject {
             GameObject corruption = Instantiate( settings.corruptionBubble ) as GameObject;
             corruption.transform.parent = cells[ i ].transform;
             corruption.transform.position = cells[ i ].transform.position;
+            cells[i].cellIsCorrupted = true;
             yield return new WaitForSeconds( 0.009f );
         }
         roomIsCorrupted = true;
