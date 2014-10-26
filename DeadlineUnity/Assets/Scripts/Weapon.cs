@@ -48,19 +48,25 @@ public class Weapon : UnityObserver {
     public void RandomWeapon(){
         int enumCount = WeaponType.GetNames(typeof(WeaponType)).Length;
         System.Random rnd = new System.Random();
-        int selection = rnd.Next(0,enumCount);
+        int selection = rnd.Next(0,10);
 
-        if(selection == 0){
-           weaponType = WeaponType.STAPLER;
-           damage = 3;
+        if(selection <= 5){
+            weaponType = WeaponType.PENCIL;
+            damage = 1;
+            ammo = 9;
+            transform.renderer.materials[0] = (Material)Resources.Load("PencilMat");
         }
-        else if(selection == 1)
+        else if(selection > 5 && selection <9)
         {
             weaponType = WeaponType.KEYBOARD;
             damage = 2;
-        }else if(selection == 2){
-            weaponType = WeaponType.PENCIL;
-            damage = 1;
+            ammo = 6;
+            transform.renderer.materials[0] = (Material)Resources.Load("KeyboardMat");
+        }else if(selection == 9){
+            weaponType = WeaponType.STAPLER;
+            damage = 3;
+            ammo = 3;
+            transform.renderer.materials[0] = (Material)Resources.Load("StaplerMat");
         }
     }
 }
