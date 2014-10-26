@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour {
 
     private Exit exitInstance;
 
+    public int Level = 1;
 	private void Start () {
 		BeginGame();
 	}
@@ -64,4 +65,15 @@ public class GameManager : MonoBehaviour {
 		}
     BeginGame();
 	}
+
+    private void NextLevel()
+    {
+        Destroy(mazeInstance.gameObject);
+        if (playerInstance != null)
+        {
+            Destroy(playerInstance.gameObject);
+        }
+        Level++;
+        BeginGame();
+    }
 }
