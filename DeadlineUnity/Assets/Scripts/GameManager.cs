@@ -1,14 +1,15 @@
 ﻿using System;
 using UnityEngine;
 using System.Collections;
+using Object = UnityEngine.Object;
 
-public class GameManager : MonoBehaviour {
+public class GameManager : UnityObserver {
 
 	public Maze mazePrefab;
 
 	public Player playerPrefab;
 
-    public OfficeWorker officeWorkerPrefab;
+    public const string NEXT_LEVEL ="NEXT_LEVEL";
 
     public Exit exitPrefab;
 
@@ -29,14 +30,23 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 
-	private void BeginGame () {
+    public override void OnNotify(Object sender, EventArguments e)
+    {
+        if (e.eventMessage == NEXT_LEVEL)
+        {
+            NextLevel();
+            
+        }
+    }
+
+    private void BeginGame () {
 		Camera.main.clearFlags = CameraClearFlags.Skybox;
 		Camera.main.rect = new Rect(0f, 0f, 1f, 1f);
 		mazeInstance = Instantiate(mazePrefab) as Maze;
 		mazeInstance.Generate();
 		playerInstance = Instantiate(playerPrefab) as Player;
 	    MazeCell playerloc = mazeInstance.GetCell(mazeInstance.RandomCoordinates);
-		playerInstance.SetLocation(playerloc);
+		
 	    MazeCell exitLoc;
 	    do
 	    {
@@ -45,6 +55,9 @@ public class GameManager : MonoBehaviour {
 	    exitInstance = Instantiate(exitPrefab) as Exit;
 	    exitInstance.SetInitialLocation(exitLoc);
 	    exitInstance.transform.parent = exitLoc.transform;
+	    exitLoc.isExit = true;
+        mazeInstance.HideRooms();
+        playerInstance.SetLocation(playerloc);
 		Camera.main.clearFlags = CameraClearFlags.Depth;
 		Camera.main.rect = new Rect(0f, 0f, 0.5f, 0.5f);
 	}
@@ -69,10 +82,7 @@ public class GameManager : MonoBehaviour {
     private void NextLevel()
     {
         Destroy(mazeInstance.gameObject);
-        if (playerInstance != null)
-        {
-            Destroy(playerInstance.gameObject);
-        }
+
         Level++;
         BeginGame();
     }

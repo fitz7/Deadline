@@ -18,6 +18,9 @@ public class Player : MonoBehaviour {
         currentCell.cellIsOccupied = true;
 		transform.localPosition = cell.transform.localPosition;
 		currentCell.OnPlayerEntered();
+        if(currentCell.isExit)
+            Subject.Notify(GameManager.NEXT_LEVEL);
+        
 	}
 
 	private void Move (MazeDirection direction) {
