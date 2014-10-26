@@ -7,6 +7,10 @@ public class Player : UnityObserver {
 
     public const string ATTACK_PLAYER = "ATTACK_PLAYER";
 
+    public GameObject playerDeathAnimation;
+
+    private bool endGame;
+
     private int baseDamage = 3;
 
 	private MazeCell currentCell;
@@ -14,6 +18,8 @@ public class Player : UnityObserver {
 	private MazeDirection currentDirection;
 
     private int currentPlayerAmmo = 0;
+
+    private bool runOnce;
 
     public override void OnNotify(Object sender, EventArguments e)
     {
@@ -31,6 +37,14 @@ public class Player : UnityObserver {
 		currentCell = cell;
         currentCell.cellIsOccupied = true;
 		transform.localPosition = cell.transform.localPosition;
+        if (!runOnce)
+        {
+            playerDeathAnimation = Instantiate(playerDeathAnimation) as GameObject;
+            playerDeathAnimation.transform.position = transform.localPosition;
+            playerDeathAnimation.transform.parent = transform;
+            playerDeathAnimation.SetActive(false);
+            runOnce = true;
+        }
 		currentCell.OnPlayerEntered();
         if(currentCell.isExit)
             Subject.Notify(GameManager.NEXT_LEVEL);
@@ -103,6 +117,10 @@ public class Player : UnityObserver {
 
     private void Update()
     {
+        if (endGame)
+        {
+            return;
+        }
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
         {
             Move(currentDirection);
@@ -137,7 +155,16 @@ public class Player : UnityObserver {
         health = health - damage;
         if ( health < 0 )
         {
-            Application.LoadLevel( 2 );
+            endGame = true;
+            StartCoroutine(EndGame());
         }
+    }
+
+    private IEnumerator EndGame( )
+    {
+        this.gameObject.GetComponentInChildren<MeshRenderer>().enabled = false;
+        playerDeathAnimation.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        Application.LoadLevel(0);
     }
 }

@@ -47,7 +47,6 @@ public class GameManager : UnityObserver {
         if(Level ==1 )
 		playerInstance = Instantiate(playerPrefab) as Player;
 	    MazeCell playerloc = mazeInstance.GetCell(mazeInstance.RandomCoordinates);
-		
 	    MazeCell exitLoc;
 	    do
 	    {
