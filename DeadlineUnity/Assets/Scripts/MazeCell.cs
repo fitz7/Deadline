@@ -6,6 +6,8 @@ public class MazeCell : MonoBehaviour {
 
 	public MazeRoom room;
 
+    public bool cellIsOccupied;
+
 	private MazeCellEdge[] edges = new MazeCellEdge[MazeDirections.Count];
 
 	private int initializedEdgeCount;

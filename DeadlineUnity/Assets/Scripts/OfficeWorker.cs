@@ -84,12 +84,16 @@ public class OfficeWorker : UnityObserver {
         {
             float distanceWeight = Vector3.Distance( currentRoom.cells[ i ].transform.position,
                                                        playersCurrentCell.transform.position );
-
-            if ( distanceWeight < currentCellDistance 
-                && ( currentRoom.cells[ i ].coordinates.x == ( currentCell.coordinates.x + 1 )
-                     || currentRoom.cells[ i ].coordinates.x == ( currentCell.coordinates.x - 1 ) )
-                && ( currentRoom.cells[ i ].coordinates.z == ( currentCell.coordinates.z + 1 )
-                     || currentRoom.cells[ i ].coordinates.z == ( currentCell.coordinates.z - 1 ) ) )
+            if( distanceWeight < currentCellDistance
+                //Can the AI Move Vertically
+                && ( ( currentRoom.cells[ i ].coordinates.x == ( currentCell.coordinates.x )
+                       && ( currentRoom.cells[ i ].coordinates.z == ( currentCell.coordinates.z + 1 )
+                       || currentRoom.cells[ i ].coordinates.z == ( currentCell.coordinates.z - 1 ) ) )
+                   //Can the AI Move Horizontally
+                   || ( currentRoom.cells[ i ].coordinates.z == ( currentCell.coordinates.z )
+                        && ( currentRoom.cells[ i ].coordinates.x == ( currentCell.coordinates.x + 1 )
+                        || currentRoom.cells[ i ].coordinates.x == ( currentCell.coordinates.x - 1 ) ) ) )
+                )
             {
                 currentCellDistance = distanceWeight;
                 closestCellVector = i;
