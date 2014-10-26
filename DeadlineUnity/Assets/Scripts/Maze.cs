@@ -9,6 +9,9 @@ public class Maze : MonoBehaviour
 
     public OfficeWorker officeWorkerPrefab;
 
+    public Item itemPrefab;
+    public Weapon weaponPrefab;
+
     public IntVector2 size;
 
     public MazeCell cellPrefab;
@@ -33,8 +36,8 @@ public class Maze : MonoBehaviour
     private MazeCell[,] cells;
 
     private List<OfficeWorker> officeWorkers = new List<OfficeWorker>();
-
-
+    private List<Item> items = new List<Item>();
+    private List<Weapon> weapons = new List<Weapon>();
     public IntVector2 RandomCoordinates
     {
         get
@@ -73,6 +76,12 @@ public class Maze : MonoBehaviour
             //SpawnItems(rooms[i].CountCells());
             rooms[ i ].Hide( );
         }
+        for (int i=0; i<cells.GetLength(0); i++){
+            for (int j = 0; j < cells.GetLength(1); j++)
+            {
+                PickObject(cells[i, j]);
+            }
+        }
     }
 
     public void SpawnEnemies(MazeRoom room)
@@ -110,22 +119,36 @@ public class Maze : MonoBehaviour
         tempOfficeWorker.transform.parent = cell.transform;
         officeWorkers.Add( tempOfficeWorker );
     }
-    public void SpawnItems(int cells)
-    {
-        int items;
-        if (cells <= 5)
-            items = 0;
-        else if (cells > 5 && cells <= 10)
-            items = 1;
-        else if (cells > 10 && cells <= 15)
-            items = (int)Mathf.Floor(UnityEngine.Random.Range(1, 2));
-        else
-            items = 2;
-        for (int i = 0; i <= items; i++)
-        {
 
-        }
+
+    public void PickObject(MazeCell cell)
+    {
+        int picker = UnityEngine.Random.Range(0, 99);
+        if (picker < 6)
+            SpawnItem(cell);
+        else if (picker < 9)
+            SpawnWeapon(cell);
+        else
+            return;
     }
+
+    public void SpawnItem(MazeCell cell)
+    {
+        Item tempItem = Instantiate(itemPrefab) as Item;
+        tempItem.SetInitialLocation(cell);
+        tempItem.transform.parent = cell.transform;
+        items.Add(tempItem);
+    }
+
+    public void SpawnWeapon(MazeCell cell)
+    {
+        Weapon tempWeapon = Instantiate(weaponPrefab) as Weapon;
+        tempWeapon.SetInitialLocation(cell);
+        tempWeapon.transform.parent = cell.transform;
+        weapons.Add(tempWeapon);
+    }
+
+        
     private void DoFirstGenerationStep(List<MazeCell> activeCells)
     {
         MazeCell newCell = CreateCell(RandomCoordinates);
