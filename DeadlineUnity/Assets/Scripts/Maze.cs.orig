@@ -50,11 +50,18 @@ public class Maze : MonoBehaviour {
 		while (activeCells.Count > 0) {
 			DoNextGenerationStep(activeCells);
 		}
+<<<<<<< HEAD
 		for (int i = 0; i < rooms.Count; i++) {
             SpawnEnemies(rooms[i]);
             SpawnItems(rooms[i].CountCells());
 			rooms[i].Hide();
 		}
+=======
+        //for (int i = 0; i < rooms.Count; i++) {
+        //    rooms[i].Hide();
+        //}
+        corruption.GetComponent< CorruptionSpread >( ).StartCorruption( rooms );
+>>>>>>> fb6c7465ff288b298cdca2e40c3b22eedf8d325e
 	}
 
     public void SpawnEnemies(MazeRoom room)
