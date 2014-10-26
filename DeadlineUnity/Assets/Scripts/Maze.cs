@@ -47,12 +47,11 @@ public class Maze : MonoBehaviour {
 		List<MazeCell> activeCells = new List<MazeCell>();
 		DoFirstGenerationStep(activeCells);
 		while (activeCells.Count > 0) {
-			//yield return delay;
 			DoNextGenerationStep(activeCells);
 		}
-        for (int i = 0; i < rooms.Count; i++) {
-            rooms[i].Hide();
-        }
+        //for (int i = 0; i < rooms.Count; i++) {
+        //    rooms[i].Hide();
+        //}
         corruption.GetComponent< CorruptionSpread >( ).StartCorruption( rooms );
 	}
 

@@ -32,6 +32,7 @@ public class Player : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
         {
             Move(currentDirection);
+            Debug.Log( "Call Once" );
         }
         else if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
         {
