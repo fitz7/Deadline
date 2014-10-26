@@ -42,7 +42,7 @@ public class Maze : MonoBehaviour {
 	}
 
 	public IEnumerator Generate () {
-        //corruption = GameObject.Instantiate( corruption );
+        corruption = (GameObject)GameObject.Instantiate( corruption );
 		WaitForSeconds delay = new WaitForSeconds(generationStepDelay);
 		cells = new MazeCell[size.x, size.z];
 		List<MazeCell> activeCells = new List<MazeCell>();
