@@ -26,7 +26,7 @@ public class GameManager : UnityObserver {
 	
 	private void Update () {
 		if (Input.GetKeyDown(KeyCode.Space)) {
-			RestartGame();
+			NextLevel();
 		}
 	}
 
@@ -44,6 +44,7 @@ public class GameManager : UnityObserver {
 		Camera.main.rect = new Rect(0f, 0f, 1f, 1f);
 		mazeInstance = Instantiate(mazePrefab) as Maze;
 		mazeInstance.Generate();
+        if(Level ==1 )
 		playerInstance = Instantiate(playerPrefab) as Player;
 	    MazeCell playerloc = mazeInstance.GetCell(mazeInstance.RandomCoordinates);
 		
@@ -82,7 +83,8 @@ public class GameManager : UnityObserver {
     private void NextLevel()
     {
         Destroy(mazeInstance.gameObject);
-
+        StopAllCoroutines();
+        Destroy(mazeInstance.corruption.gameObject);
         Level++;
         BeginGame();
     }
