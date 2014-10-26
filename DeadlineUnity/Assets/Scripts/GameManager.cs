@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour {
 	private Player playerInstance;
 
 	private void Start () {
-		StartCoroutine(BeginGame());
+		BeginGame();
 	}
 	
 	private void Update () {
@@ -21,11 +21,11 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 
-	private IEnumerator BeginGame () {
+	private void BeginGame () {
 		Camera.main.clearFlags = CameraClearFlags.Skybox;
 		Camera.main.rect = new Rect(0f, 0f, 1f, 1f);
 		mazeInstance = Instantiate(mazePrefab) as Maze;
-        yield return StartCoroutine( mazeInstance.Generate( ) );
+		mazeInstance.Generate();
 		playerInstance = Instantiate(playerPrefab) as Player;
 		playerInstance.SetLocation(mazeInstance.GetCell(mazeInstance.RandomCoordinates));
 		Camera.main.clearFlags = CameraClearFlags.Depth;
@@ -33,11 +33,11 @@ public class GameManager : MonoBehaviour {
 	}
 
 	private void RestartGame () {
-		StopAllCoroutines();
+		//StopAllCoroutines();
 		Destroy(mazeInstance.gameObject);
 		if (playerInstance != null) {
 			Destroy(playerInstance.gameObject);
 		}
-		StartCoroutine(BeginGame());
+    BeginGame();
 	}
 }
