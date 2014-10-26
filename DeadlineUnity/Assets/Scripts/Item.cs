@@ -1,18 +1,20 @@
-﻿using UnityEngine;
+﻿using System.Security.Policy;
+using UnityEngine;
 using System.Collections;
 
 enum ItemType
 {
     Health,
     Armor,
-    Ammo
+    HealthUp
 }
 public class Item : UnityObserver {
-
+    public Material[] mats;
     public const string PICK_UP_ITEM = "PICK_UP_ITEM";
     private MazeCell currentCell;
     private MazeRoom currentRoom;
-
+    ItemType itemType;
+    public string type;
     public override void OnNotify( Object sender, EventArguments e )
     {
         if ( e.eventMessage == PICK_UP_ITEM )
@@ -20,7 +22,10 @@ public class Item : UnityObserver {
             
         }
     }
-
+    void Awake()
+    {
+        RandomItem();
+    }
     public void SetInitialLocation( MazeCell cell )
     {
         currentRoom = cell.room;
@@ -35,5 +40,37 @@ public class Item : UnityObserver {
         }
         currentCell = cell;
         transform.localPosition = cell.transform.localPosition;
+    }
+
+    private void RandomItem()
+    {
+        int enumCount = ItemType.GetNames(typeof (ItemType)).Length;
+        int selection = UnityEngine.Random.Range(0, 10);
+       
+
+        if (selection <= 6)
+        {
+            itemType = ItemType.Health;
+            Material[] health = new Material[1];
+            health[0] = mats[0];
+            transform.GetChild(0).renderer.materials = health;
+           
+        }
+        if (selection > 5 && selection <= 9)
+        {
+            itemType = ItemType.Armor;
+            Material[] armour = new Material[1];
+            armour[0] = mats[1];
+            transform.GetChild(0).renderer.materials = armour;
+           
+        }
+        else if(selection > 9)
+        {
+            itemType = ItemType.HealthUp;
+            Material[] healthUp = new Material[1];
+            healthUp[0] = mats[2];
+            transform.GetChild(0).renderer.materials = healthUp;
+            
+        }      
     }
 }
