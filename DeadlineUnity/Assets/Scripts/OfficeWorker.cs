@@ -19,6 +19,8 @@ public class OfficeWorker : UnityObserver
 {
 
     public const string MOVE_ENEMY = "MOVE_ENEMY";
+    public Material[] good;
+    public Material[] bad;
     private MazeDirection currentDirection;
     private WORKER_MOVEMENT workerMovement = WORKER_MOVEMENT.CLOCKWISE;
     private MazeCell currentCell;
@@ -52,24 +54,55 @@ public class OfficeWorker : UnityObserver
 
         if (selection <= 5)
         {
-            enemyType = EnemyType.Female;
-            Material[] pencil = new Material[1];
-            pencil[0] = mats[0];
-            transform.GetChild(0).renderer.materials = pencil;
+            enemyType = EnemyType.Male;
+            Material[] male = new Material[1];
+            male[0] = good[0];
+            transform.GetChild(0).renderer.materials = male;
         }
         else if (selection > 5 && selection < 9)
         {
-            enemyType = EnemyType.Male;
-            Material[] keyboard = new Material[1];
-            keyboard[0] = mats[1];
-            transform.GetChild(0).renderer.materials = keyboard;
+            enemyType = EnemyType.Female;
+            Material[] female = new Material[1];
+            female[0] = good[1];
+            transform.GetChild(0).renderer.materials = female;
         }
         else if (selection == 9)
         {
             enemyType = EnemyType.Janitor;
-            Material[] stapler = new Material[1];
-            stapler[0] = mats[2];
-            transform.GetChild(0).renderer.materials = stapler;
+            Material[] janitor = new Material[1];
+            janitor[0] = good[2];
+            transform.GetChild(0).renderer.materials = janitor;
+        }
+    }
+
+    private void ChangeEnemySprite()
+    {
+        if (enemyType == EnemyType.Male)
+        {
+            Material[] male = new Material[1];
+            male[0] = bad[0];
+            transform.GetChild(0).renderer.materials = male;
+        }
+        else if (enemyType == EnemyType.Female)
+        {
+            Material[] Female = new Material[1];
+            Female[0] = bad[0];
+            transform.GetChild(0).renderer.materials = Female;
+        }
+        else if (enemyType == EnemyType.Janitor)
+        {
+            Material[] Janitor = new Material[1];
+            Janitor[0] = bad[0];
+            transform.GetChild(0).renderer.materials = Janitor;
+        }
+    }
+
+    public void AttackEnemy(int damage)
+    {
+        health = health - damage;
+        if (health < 0)
+        {
+            Destroy(this.gameObject);
         }
     }
 
