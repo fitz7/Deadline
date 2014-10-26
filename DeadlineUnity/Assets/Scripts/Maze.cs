@@ -9,6 +9,9 @@ public class Maze : MonoBehaviour
 
     public OfficeWorker officeWorkerPrefab;
 
+    public Item itemPrefab;
+    public Weapon weaponPrefab;
+
     public IntVector2 size;
 
     public MazeCell cellPrefab;
@@ -125,6 +128,9 @@ public class Maze : MonoBehaviour
 
         }
     }
+    public Item SpawnItem(MazeCell cell)
+    
+        
     private void DoFirstGenerationStep(List<MazeCell> activeCells)
     {
         MazeCell newCell = CreateCell(RandomCoordinates);
