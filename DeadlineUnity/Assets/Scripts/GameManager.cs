@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour {
 
 	public Player playerPrefab;
 
+    public OfficeWorker officeWorkerPrefab;
+
 	private Maze mazeInstance;
 
 	private Player playerInstance;
@@ -28,9 +30,16 @@ public class GameManager : MonoBehaviour {
 		mazeInstance.Generate();
 		playerInstance = Instantiate(playerPrefab) as Player;
 		playerInstance.SetLocation(mazeInstance.GetCell(mazeInstance.RandomCoordinates));
+        CreateStubEnemy( );
 		Camera.main.clearFlags = CameraClearFlags.Depth;
 		Camera.main.rect = new Rect(0f, 0f, 0.5f, 0.5f);
 	}
+
+    private void CreateStubEnemy( )
+    {
+        officeWorkerPrefab = Instantiate( officeWorkerPrefab ) as OfficeWorker;
+        officeWorkerPrefab.SetInitialLocation( mazeInstance.GetCell( mazeInstance.RandomCoordinates ) );
+    }
 
 	private void RestartGame () {
 		Destroy(mazeInstance.gameObject);

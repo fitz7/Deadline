@@ -8,7 +8,7 @@ public class CorruptionSpread : MonoBehaviour
 
     public void StartCorruption( List< MazeRoom > roomList ){
         currentRooms = roomList;
-        StartCoroutine( CorruptRoom( ) );
+        //StartCoroutine( CorruptRoom( ) );
     }
 
     private IEnumerator CorruptRoom( )
