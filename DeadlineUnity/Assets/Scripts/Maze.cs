@@ -71,16 +71,17 @@ public class Maze : MonoBehaviour
         {
             SpawnEnemies(rooms[i]);
         }
+        for ( int i = 0; i < cells.GetLength( 0 ); i++ )
+        {
+            for ( int j = 0; j < cells.GetLength( 1 ); j++ )
+            {
+                PickObject( cells[ i, j ] );
+            }
+        }
         for ( int i = 0; i < rooms.Count; i++ )
         {
             //SpawnItems(rooms[i].CountCells());
             rooms[ i ].Hide( );
-        }
-        for (int i=0; i<cells.GetLength(0); i++){
-            for (int j = 0; j < cells.GetLength(1); j++)
-            {
-                PickObject(cells[i, j]);
-            }
         }
     }
 
