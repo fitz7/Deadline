@@ -8,6 +8,8 @@ public class MazeCell : MonoBehaviour {
 
     public Item currentItem;
 
+    public Weapon currentWeapon;
+
     public bool cellIsOccupied;
 
     public bool cellIsCorrupted;

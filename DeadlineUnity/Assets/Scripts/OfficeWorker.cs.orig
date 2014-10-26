@@ -28,10 +28,10 @@ public class OfficeWorker : UnityObserver
     private MazeCell playersCurrentCell;
     private MazeCell cachedPlayerCell;
     private MazeRoom currentRoom;
+    private bool workerIsCorrupted;
     private EnemyType enemyType;
     private int health;
     private int damage;
-    private bool officeWorkerCorrupt;
 
     void Start()
     {
@@ -64,7 +64,6 @@ public class OfficeWorker : UnityObserver
             male[0] = good[0];
             transform.GetChild(0).renderer.materials = male;
             health = 5;
-            damage = 1;
         }
         else if (selection > 5 && selection < 9)
         {
@@ -73,7 +72,6 @@ public class OfficeWorker : UnityObserver
             female[0] = good[1];
             transform.GetChild(0).renderer.materials = female;
             health = 7;
-            damage = 2;
         }
         else if (selection == 9)
         {
@@ -82,7 +80,6 @@ public class OfficeWorker : UnityObserver
             janitor[0] = good[2];
             transform.GetChild(0).renderer.materials = janitor;
             health = 10;
-            damage = 3;
         }
     }
 
@@ -122,24 +119,40 @@ public class OfficeWorker : UnityObserver
             currentCell.currentMonsterOnCell = null;
         }
         currentCell = cell;
+<<<<<<< HEAD
         currentCell.currentMonsterOnCell = this;
+        IsCellCorrupted();
+=======
         if (currentCell.cellIsCorrupted)
         {
             CorruptOfficeWorker();
         }
+        currentCell.currentMonsterOnCell = this.gameObject;
+>>>>>>> a9f343b8d572fe3d528e37a43c8c5d228bfaa181
         this.transform.position = currentCell.transform.position;
     }
 
     private void CorruptOfficeWorker()
     {
+<<<<<<< HEAD
+        if (currentCell.cellIsCorrupted && !workerIsCorrupted)
+        {
+            ChangeEnemySprite();
+            workerIsCorrupted = true;
+        }
+        if (workerIsCorrupted)
+        {
+            currentCell.cellIsOccupied = true;
+        }
+=======
         ChangeEnemySprite();
-        officeWorkerCorrupt = true;
         currentCell.cellIsOccupied = true;
+>>>>>>> a9f343b8d572fe3d528e37a43c8c5d228bfaa181
     }
 
     private void SearchForPlayer()
     {
-        if (playersCurrentCell.room != currentRoom || !officeWorkerCorrupt )
+        if (playersCurrentCell.room != currentRoom || !workerIsCorrupted)
         {
             Move(currentDirection);
             return;
@@ -168,10 +181,6 @@ public class OfficeWorker : UnityObserver
         if ( currentRoom.cells[ closestCellVector ].cellIsOccupied
              || currentRoom.cells[ closestCellVector ].currentMonsterOnCell == this )
         {
-            if ( currentRoom.cells[ closestCellVector ].currentMonsterOnCell == null )
-            {
-                Subject.NotifyExtendedMessage( Player.ATTACK_PLAYER, damage.ToString( ) );
-            }
             return;
         }
         cachedPlayerCell = playersCurrentCell;

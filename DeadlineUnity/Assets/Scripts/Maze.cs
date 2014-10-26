@@ -153,6 +153,7 @@ public class Maze : MonoBehaviour
         tempWeapon.SetInitialLocation(cell);
         tempWeapon.transform.parent = cell.transform;
         weapons.Add(tempWeapon);
+        cell.currentWeapon = tempWeapon;
     }
 
         

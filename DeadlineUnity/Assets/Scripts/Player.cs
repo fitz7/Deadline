@@ -1,15 +1,27 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Player : MonoBehaviour {
+public class Player : UnityObserver {
 
-    public int health = 10;
+    public int health = 20;
+
+    public const string ATTACK_PLAYER = "ATTACK_PLAYER";
 
     private int baseDamage = 3;
 
 	private MazeCell currentCell;
 
 	private MazeDirection currentDirection;
+
+    private int currentPlayerAmmo = 0;
+
+    public override void OnNotify(Object sender, EventArguments e)
+    {
+        if( e.eventMessage == ATTACK_PLAYER )
+        {
+            AttackPlayer( e.extendedMessageNumber );
+        }
+    }
 
 	public void SetLocation (MazeCell cell) {
 		if (currentCell != null) {
@@ -18,7 +30,6 @@ public class Player : MonoBehaviour {
 		}
 		currentCell = cell;
         currentCell.cellIsOccupied = true;
-        CheckForItems( );
 		transform.localPosition = cell.transform.localPosition;
 		currentCell.OnPlayerEntered();
         if(currentCell.isExit)
@@ -27,6 +38,9 @@ public class Player : MonoBehaviour {
 	}
 
 	private void Move (MazeDirection direction) {
+        Debug.Log( "HEALTH: " + health );
+        Debug.Log( "AMMO: " + currentPlayerAmmo );
+        Debug.Log( "DAMAGE: " + baseDamage );
 		MazeCellEdge edge = currentCell.GetEdge(direction);
         if ( edge is MazePassage )
         {
@@ -42,6 +56,14 @@ public class Player : MonoBehaviour {
     private void AttackMonster( MazeCell occupiedCell )
     {
         occupiedCell.currentMonsterOnCell.AttackEnemy( baseDamage );
+        if ( currentPlayerAmmo > 0 )
+        {
+            currentPlayerAmmo -= 1;
+        }
+        if( currentPlayerAmmo <= 0 )
+        {
+            currentPlayerAmmo = 0;
+        }
     }
 
     private void CheckForItems( )
@@ -49,6 +71,22 @@ public class Player : MonoBehaviour {
         if ( currentCell.currentItem != null )
         {
             DestroyImmediate( currentCell.currentItem.gameObject );
+            health += 2;
+            if ( health > 20 )
+            {
+                health = 20;
+            }
+        }
+    }
+
+    private void CheckForWeapon( )
+    {
+        if ( currentCell.currentWeapon != null )
+        {
+            baseDamage = 3;
+            baseDamage = currentCell.currentWeapon.damage + baseDamage;
+            currentPlayerAmmo = currentCell.currentWeapon.ammo;
+            DestroyImmediate( currentCell.currentWeapon.gameObject );
         }
     }
 
@@ -79,6 +117,22 @@ public class Player : MonoBehaviour {
             Move(currentDirection.GetNextCounterclockwise());
             Subject.NotifySendAll( currentCell, OfficeWorker.MOVE_ENEMY, " " );
         }
+        else if ( Input.GetKeyDown( KeyCode.Space ) )
+        {
+            CheckForItems( );
+            CheckForWeapon( );
+        }
 
     }
+
+    public void AttackPlayer( int damage )
+    {
+        Debug.Log( "ATTACK: " + health );
+        health = health - damage;
+        if ( health < 0 )
+        {
+            Application.LoadLevel( 2 );
+        }
+    }
+
 }
