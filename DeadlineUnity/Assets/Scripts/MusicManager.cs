@@ -3,7 +3,9 @@ using System.Collections;
 
 public class MusicManager : UnityObserver
 {
+    public AudioSource death;
     private static MusicManager _instance;
+    private AudioSource mainAudio;
 
     public static MusicManager instance
     {
@@ -20,6 +22,7 @@ public class MusicManager : UnityObserver
 
     void Awake( )
     {
+        mainAudio = GetComponent<AudioSource>();
         if ( _instance == null )
         {
             _instance = this;
@@ -34,8 +37,19 @@ public class MusicManager : UnityObserver
         }
     }
 
-    public void Play( )
-    { 
-    
+    public override void OnNotify(Object sender, EventArguments e)
+    {
+        if( e.eventMessage == "DEATH_SOUND" )
+        {
+            death.Play();
+        }
+    }
+
+    public void Update()
+    {
+        if (!mainAudio.isPlaying)
+        {
+            mainAudio.Play();
+        }
     }
 }
