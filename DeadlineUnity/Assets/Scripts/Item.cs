@@ -50,7 +50,7 @@ public class Item : UnityObserver {
     private void RandomItem()
     {
         int enumCount = ItemType.GetNames(typeof (ItemType)).Length;
-        int selection = UnityEngine.Random.Range(0, 10);
+        int selection = UnityEngine.Random.Range(0, 11);
        
 
         if (selection <= 6)
