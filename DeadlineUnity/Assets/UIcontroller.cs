@@ -13,4 +13,9 @@ public class UIcontroller : MonoBehaviour
     {
         Application.Quit();
     }
+
+    public void Help()
+    {
+        Application.LoadLevel("controls");
+    }
 }
