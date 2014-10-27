@@ -137,7 +137,7 @@ public class Player : UnityObserver {
         health = health - damage;
         if ( health < 0 )
         {
-            Application.LoadLevel( 2 );
+            Application.LoadLevel( 0 );
         }
     }
 }
