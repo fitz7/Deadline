@@ -210,6 +210,7 @@ public class OfficeWorker : UnityObserver
         health = health - damage;
         if (health < 0)
         {
+            Subject.Notify( "DEATH_SOUND" );
             currentCell.currentMonsterOnCell = null;
             currentCell.cellIsOccupied = false;
             DestroyImmediate( this.gameObject );
