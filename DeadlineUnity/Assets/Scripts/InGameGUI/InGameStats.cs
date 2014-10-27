@@ -6,10 +6,12 @@ public class InGameStats : UnityObserver {
     public const string UPDATE_AMMO = "UPDATE_AMMO";
     public const string UPDATE_DAMAGE = "UPDATE_DAMAGE";
     public const string CLEAR_WEAPON = "CLEAR_WEAPON";
+    public const string LEVEL_CHANGE = "LEVEL_CHANGE";
     public UILabel healthLabel;
     public UILabel ammoLabel;
     public UILabel damageLabel;
     public UISprite weaponSprite;
+    public UILabel level;
 
     public override void OnNotify( Object sender, EventArguments e )
     {
@@ -26,6 +28,9 @@ public class InGameStats : UnityObserver {
                 break;
             case CLEAR_WEAPON:
                 weaponSprite.spriteName = "X Mark";
+                break;
+            case LEVEL_CHANGE:
+                level.text = GameManager.Level.ToString( );
                 break;
         }
         if ( e.eventMessage == WeaponType.KEYBOARD.ToString( ) )

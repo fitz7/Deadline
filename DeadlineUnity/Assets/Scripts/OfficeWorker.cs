@@ -32,10 +32,19 @@ public class OfficeWorker : UnityObserver
     private int health;
     private int damage;
     private bool officeWorkerCorrupt;
+    private bool enemySpriteChange;
 
     void Start()
     {
         SelectRandomEnemy();
+    }
+
+    private void Update()
+    {
+        if (!enemySpriteChange && currentCell.cellIsCorrupted)
+        {
+            CorruptOfficeWorker();
+        }
     }
 
     public override void OnNotify(Object sender, EventArguments e)
@@ -88,6 +97,7 @@ public class OfficeWorker : UnityObserver
 
     private void ChangeEnemySprite()
     {
+        enemySpriteChange = true;
         if (enemyType == EnemyType.Male)
         {
             Material[] male = new Material[1];
@@ -177,6 +187,7 @@ public class OfficeWorker : UnityObserver
         cachedPlayerCell = playersCurrentCell;
         SetLocation(currentRoom.cells[closestCellVector]);
     }
+
     private void Move(MazeDirection direction)
     {
         MazeCellEdge edge = currentCell.GetEdge(direction);
