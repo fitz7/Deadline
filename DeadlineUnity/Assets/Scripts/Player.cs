@@ -95,7 +95,6 @@ public class Player : UnityObserver {
                 {
                     health = MAXHP;
                 }
-                Debug.Log("HEALTH PACK 2");
             }
             if (type == ItemType.Armor.ToString())
             {
@@ -104,13 +103,13 @@ public class Player : UnityObserver {
                 {
                     health = MAXHP;
                 }
-                Debug.Log("HEALTH PACK 4");
             }
             if (type == ItemType.HealthUp.ToString())
             {
                 MAXHP += 5;
-                Debug.Log("HEALTH INCREASE");
+                health += 5;
             }
+            Subject.Notify( "CRUNCH_SOUND" );
             Subject.NotifyExtendedMessage( InGameStats.UPDATE_HEALTH, health.ToString( ) );
         }
     }
@@ -124,6 +123,7 @@ public class Player : UnityObserver {
             currentPlayerAmmo = currentCell.currentWeapon.ammo;
             Subject.Notify( currentCell.currentWeapon.weaponType.ToString( ) );
             DestroyImmediate( currentCell.currentWeapon.gameObject );
+            Subject.Notify("WEAPON_SOUND");
             Subject.NotifyExtendedMessage( InGameStats.UPDATE_DAMAGE, baseDamage.ToString( ) );
             Subject.NotifyExtendedMessage( InGameStats.UPDATE_AMMO, currentPlayerAmmo.ToString( ) );
         }
@@ -172,7 +172,7 @@ public class Player : UnityObserver {
     {
         Subject.NotifyExtendedMessage( InGameStats.UPDATE_HEALTH, health.ToString( ) );
         health = health - damage;
-        if ( health < 0 )
+        if ( health <= 0 )
         {
             endGame = true;
             StartCoroutine(EndGame());
@@ -184,6 +184,7 @@ public class Player : UnityObserver {
         this.gameObject.GetComponentInChildren<MeshRenderer>().enabled = false;
         playerDeathAnimation.SetActive(true);
         yield return new WaitForSeconds(0.5f);
+        GameManager.Level = 1;
         Application.LoadLevel(0);
     }
 }

@@ -4,6 +4,8 @@ using System.Collections;
 public class MusicManager : UnityObserver
 {
     public AudioSource death;
+    public AudioSource crunch;
+    public AudioSource weapon;
     private static MusicManager _instance;
     private AudioSource mainAudio;
 
@@ -42,6 +44,14 @@ public class MusicManager : UnityObserver
         if( e.eventMessage == "DEATH_SOUND" )
         {
             death.Play();
+        }
+        if (e.eventMessage == "CRUNCH_SOUND")
+        {
+            crunch.Play();
+        }
+        if (e.eventMessage == "WEAPON_SOUND")
+        {
+            weapon.Play();
         }
     }
 

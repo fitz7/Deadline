@@ -58,6 +58,7 @@ public class GameManager : UnityObserver {
 	    exitLoc.isExit = true;
         mazeInstance.HideRooms();
         playerInstance.SetLocation(playerloc);
+        Subject.Notify( InGameStats.LEVEL_CHANGE );
 	}
 
     private bool CanPlaceExit(MazeCell player, MazeCell exit)
@@ -85,5 +86,6 @@ public class GameManager : UnityObserver {
         Destroy(mazeInstance.corruption.gameObject);
         Level++;
         BeginGame();
+        Subject.Notify(InGameStats.LEVEL_CHANGE);
     }
 }
