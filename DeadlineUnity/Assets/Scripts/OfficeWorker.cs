@@ -71,7 +71,7 @@ public class OfficeWorker : UnityObserver
             enemyType = EnemyType.Male;
             Material[] male = new Material[1];
             male[0] = good[0];
-            transform.GetChild(0).renderer.materials = male;
+            transform.GetChild(0).GetComponent<Renderer>().materials = male;
             health = 5;
             damage = 1;
         }
@@ -80,7 +80,7 @@ public class OfficeWorker : UnityObserver
             enemyType = EnemyType.Female;
             Material[] female = new Material[1];
             female[0] = good[1];
-            transform.GetChild(0).renderer.materials = female;
+            transform.GetChild(0).GetComponent<Renderer>().materials = female;
             health = 7;
             damage = 2;
         }
@@ -89,7 +89,7 @@ public class OfficeWorker : UnityObserver
             enemyType = EnemyType.Janitor;
             Material[] janitor = new Material[1];
             janitor[0] = good[2];
-            transform.GetChild(0).renderer.materials = janitor;
+            transform.GetChild(0).GetComponent<Renderer>().materials = janitor;
             health = 10;
             damage = 3;
         }
@@ -102,19 +102,19 @@ public class OfficeWorker : UnityObserver
         {
             Material[] male = new Material[1];
             male[0] = bad[0];
-            transform.GetChild(0).renderer.materials = male;
+            transform.GetChild(0).GetComponent<Renderer>().materials = male;
         }
         else if (enemyType == EnemyType.Female)
         {
             Material[] Female = new Material[1];
             Female[0] = bad[1];
-            transform.GetChild(0).renderer.materials = Female;
+            transform.GetChild(0).GetComponent<Renderer>().materials = Female;
         }
         else if (enemyType == EnemyType.Janitor)
         {
             Material[] Janitor = new Material[1];
             Janitor[0] = bad[2];
-            transform.GetChild(0).renderer.materials = Janitor;
+            transform.GetChild(0).GetComponent<Renderer>().materials = Janitor;
         }
     }
 

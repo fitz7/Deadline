@@ -2,29 +2,31 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class CorruptionSpread : MonoBehaviour
+public class CorruptionSpread : UnityObserver
 {
-    private List<MazeRoom> currentRooms = new List<MazeRoom>( );
+    private MazeCell playersCurrentCell;
+    private bool coroutineRunning;
 
-    public void StartCorruption( List< MazeRoom > roomList ){
-        currentRooms = roomList;
-        StartCoroutine( CorruptRoom( ) );
+    public override void OnNotify( Object sender, EventArguments e )
+    {
+        if ( e.eventMessage == OfficeWorker.MOVE_ENEMY )
+        {
+            if ( coroutineRunning )
+            {
+                return;
+            }
+            playersCurrentCell = ( MazeCell )sender;
+            StartCoroutine( CorruptRoom( ) );
+        }
     }
 
     private IEnumerator CorruptRoom( )
     {
-        for ( int corruptedRooms = 0; corruptedRooms < currentRooms.Count; )
+        if ( !playersCurrentCell.room.roomIsCorrupted )
         {
-            int roomCorruptionSpread = Random.Range( 0, currentRooms.Count );
-            if ( !currentRooms[ roomCorruptionSpread ].roomIsCorrupted )
-            {
-                yield return StartCoroutine( currentRooms[ roomCorruptionSpread ].CorruptRoom( ) );
-                corruptedRooms++;
-            }
-            if ( corruptedRooms >= currentRooms.Count )
-            {
-                StopAllCoroutines( );
-            }
+            coroutineRunning = true;
+            yield return StartCoroutine( playersCurrentCell.room.CorruptRoom( ) );
+            coroutineRunning = false;
         }
     }
 }

@@ -6,8 +6,9 @@ public class MusicManager : UnityObserver
     public AudioSource death;
     public AudioSource crunch;
     public AudioSource weapon;
+    public AudioSource musicTwo;
     private static MusicManager _instance;
-    private AudioSource mainAudio;
+    private bool toggle;
 
     public static MusicManager instance
     {
@@ -24,7 +25,6 @@ public class MusicManager : UnityObserver
 
     void Awake( )
     {
-        mainAudio = GetComponent<AudioSource>();
         if ( _instance == null )
         {
             _instance = this;
@@ -57,9 +57,15 @@ public class MusicManager : UnityObserver
 
     public void Update()
     {
-        if (!mainAudio.isPlaying)
+        if ( !musicTwo.isPlaying && !toggle )
         {
-            mainAudio.Play();
+            this.GetComponent<AudioSource>().Play( );
+            toggle = true;
+        }
+        else if ( !this.GetComponent<AudioSource>().isPlaying && toggle )
+        {
+            musicTwo.Play( );
+            toggle = false;
         }
     }
 }

@@ -79,7 +79,6 @@ public class Maze : MonoBehaviour
                 PickObject( cells[ i, j ] );
             }
         }
-        corruption.GetComponent<CorruptionSpread>( ).StartCorruption( rooms );
     }
 
     public void HideRooms()

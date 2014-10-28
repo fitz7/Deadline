@@ -50,7 +50,7 @@ public class Weapon : MonoBehaviour {
             ammo = 9;
             Material[] pencil = new Material[1];
             pencil[0] = mats[0];
-            transform.GetChild(0).renderer.materials = pencil;
+            transform.GetChild(0).GetComponent<Renderer>().materials = pencil;
         }
         else if(selection > 5 && selection <9)
         {
@@ -59,14 +59,14 @@ public class Weapon : MonoBehaviour {
             ammo = 6;
             Material[] keyboard = new Material[1];
             keyboard[0] = mats[1];
-            transform.GetChild(0).renderer.materials = keyboard;
+            transform.GetChild(0).GetComponent<Renderer>().materials = keyboard;
         }else {
             weaponType = WeaponType.STAPLER;
             damage = 3;
             ammo = 3;
             Material[] stapler = new Material[1];
             stapler[0] = mats[2];
-            transform.GetChild(0).renderer.materials = stapler;
+            transform.GetChild(0).GetComponent<Renderer>().materials = stapler;
         }
     }
 }

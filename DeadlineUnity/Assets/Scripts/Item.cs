@@ -58,7 +58,7 @@ public class Item : UnityObserver {
             itemType = ItemType.Health;
             Material[] health = new Material[1];
             health[0] = mats[0];
-            transform.GetChild(0).renderer.materials = health;
+            transform.GetChild(0).GetComponent<Renderer>().materials = health;
            
         }
         if (selection > 5 && selection <= 9)
@@ -66,7 +66,7 @@ public class Item : UnityObserver {
             itemType = ItemType.Armor;
             Material[] armour = new Material[1];
             armour[0] = mats[1];
-            transform.GetChild(0).renderer.materials = armour;
+            transform.GetChild(0).GetComponent<Renderer>().materials = armour;
            
         }
         else if(selection > 9)
@@ -74,7 +74,7 @@ public class Item : UnityObserver {
             itemType = ItemType.HealthUp;
             Material[] healthUp = new Material[1];
             healthUp[0] = mats[2];
-            transform.GetChild(0).renderer.materials = healthUp;
+            transform.GetChild(0).GetComponent<Renderer>().materials = healthUp;
             
         }      
     }

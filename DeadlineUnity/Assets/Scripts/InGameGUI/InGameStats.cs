@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class InGameStats : UnityObserver {
     public const string UPDATE_HEALTH = "UPDATE_HEALTH";
@@ -7,11 +8,15 @@ public class InGameStats : UnityObserver {
     public const string UPDATE_DAMAGE = "UPDATE_DAMAGE";
     public const string CLEAR_WEAPON = "CLEAR_WEAPON";
     public const string LEVEL_CHANGE = "LEVEL_CHANGE";
-    public UILabel healthLabel;
-    public UILabel ammoLabel;
-    public UILabel damageLabel;
-    public UISprite weaponSprite;
-    public UILabel level;
+    public Text healthLabel;
+    public Text ammoLabel;
+    public Text damageLabel;
+    public Image weaponSprite;
+    public Text level;
+    public Sprite noWeapon;
+    public Sprite keyboard;
+    public Sprite stapler;
+    public Sprite penicl;
 
     public override void OnNotify( Object sender, EventArguments e )
     {
@@ -27,7 +32,7 @@ public class InGameStats : UnityObserver {
                 ammoLabel.text = e.extendedMessageNumber.ToString( );
                 break;
             case CLEAR_WEAPON:
-                weaponSprite.spriteName = "X Mark";
+                weaponSprite.sprite = noWeapon;
                 break;
             case LEVEL_CHANGE:
                 level.text = GameManager.Level.ToString( );
@@ -35,15 +40,15 @@ public class InGameStats : UnityObserver {
         }
         if ( e.eventMessage == WeaponType.KEYBOARD.ToString( ) )
         {
-            weaponSprite.spriteName = "Keyboard (1)";
+            weaponSprite.sprite = keyboard;
         }
         if ( e.eventMessage == WeaponType.PENCIL.ToString( ) )
         {
-            weaponSprite.spriteName = "Pencil (1)";
+            weaponSprite.sprite = penicl;
         }
         if ( e.eventMessage == WeaponType.STAPLER.ToString( ) )
         {
-            weaponSprite.spriteName = "Stapler (1)";
+            weaponSprite.sprite = stapler;
         }
     }
 }

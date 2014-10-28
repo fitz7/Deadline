@@ -837,11 +837,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9a4deba978205942ad6bebbebb8e180, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthLabel: {fileID: 11400022}
-  ammoLabel: {fileID: 11400002}
-  damageLabel: {fileID: 11400004}
-  weaponSprite: {fileID: 11400000}
-  level: {fileID: 11400006}
+  healthLabel: {fileID: 0}
+  ammoLabel: {fileID: 0}
+  damageLabel: {fileID: 0}
+  weaponSprite: {fileID: 0}
+  level: {fileID: 0}
+  noWeapon: {fileID: 0}
+  keyboard: {fileID: 0}
+  stapler: {fileID: 0}
+  penicl: {fileID: 0}
 --- !u!114 &11400022
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -915,4 +919,3 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 100016}
   m_IsPrefabParent: 1
-  m_IsExploded: 1
